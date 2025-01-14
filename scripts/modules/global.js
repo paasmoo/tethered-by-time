@@ -8,6 +8,7 @@ global.canvas.height = 1080;
 
 global.background = document.getElementById("background");
 
+global.levelDone = false;
 global.isDead = false;
 global.gameState = "mainMenu";
 global.gameFirstStart = true;

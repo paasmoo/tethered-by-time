@@ -2,10 +2,12 @@ import { global } from "./global.js";
 import { Skeleton } from "../gameObjects/skeleton.js";
 import { MoveTrigger } from "../gameObjects/moveTrigger.js";
 import { BlockObject } from "../gameObjects/blockObject.js";
+import { Star } from "../gameObjects/star.js";
 
 function renderMenu() {
     const ctx = global.ctx;
     
+    global.background.style.visibility = "hidden";
     ctx.font = "48px Arial";
     ctx.fillStyle = "red";
     ctx.textAlign = "center";
@@ -27,6 +29,19 @@ function gameLoop(totalRunningTime) {
             setupGame();
             global.gameFirstStart = false;
         }
+        if(global.levelDone == true) {
+            global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
+            global.gameState = "mainMenu";
+            global.gameFirstStart = true;
+            global.levelDone = false;
+            global.allGameObjects = [];
+            renderMenu();
+        } else if(global.isDead) {
+            global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
+            global.isDead = false;
+            global.gameFirstStart = true;
+            global.allGameObjects = [];
+        } else {
         global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height); // Completely clear the canvas for the next graphical output 
         
         for (var i = 0; i < global.allGameObjects.length; i++) { //loop in the (game)loop -> the gameloop is continous anyways.. and on every cylce we do now loop through all objects to execute several operations (functions) on each of them: update, draw, collision detection, ...
@@ -39,6 +54,7 @@ function gameLoop(totalRunningTime) {
             }
         }
     }
+    }
     
     requestAnimationFrame(gameLoop); // This keeps the gameLoop running indefinitely
 }
@@ -50,6 +66,7 @@ function setupGame() {
     new BlockObject(0, 1000, 1000, 500);
 
     new BlockObject(1100, 1000, 1000, 500);
+    new Star(100, 900, 50, 50);
     //new BlockObject(300, 400, 50, 50);
     // setup your game here - means: Create instances of the GameObjects that belong to your game.
     // e.g.: 
