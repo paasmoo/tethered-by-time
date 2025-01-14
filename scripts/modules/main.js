@@ -2,7 +2,6 @@ import { global } from "./global.js";
 import { Skeleton } from "../gameObjects/skeleton.js";
 import { MoveTrigger } from "../gameObjects/moveTrigger.js";
 import { BlockObject } from "../gameObjects/blockObject.js";
-import { Floor } from "../gameObjects/floor.js";
 
 function renderMenu() {
     const ctx = global.ctx;
@@ -15,7 +14,7 @@ function renderMenu() {
     ctx.fillText("Press [ ENTER ] to Start", global.canvas.width / 2, global.canvas.height / 2 + 20)
 }
 
-function gameLoop(totalRunningTime) { 
+function gameLoop(totalRunningTime) {
     global.deltaTime = totalRunningTime - global.prevTotalRunningTime; // Time in milliseconds between frames
     global.deltaTime /= 1000; // Convert milliseconds to seconds for consistency in calculations
     global.prevTotalRunningTime = totalRunningTime;
@@ -45,11 +44,12 @@ function gameLoop(totalRunningTime) {
 }
 
 function setupGame() {
-    global.playerObject = new Skeleton(300, 0, 64, 64);
+    global.playerObject = new Skeleton(300, 1000, 128, 128);
     global.leftMoveTrigger = new MoveTrigger(100, 100, 20, 900, 100);
     global.rightMoveTrigger = new MoveTrigger(800, 100, 20, 900, -100);
-    new Floor(0, 400, 9000, 40);
-    new BlockObject(200, 280, 50, 50);
+    new BlockObject(0, 1000, 1000, 500);
+
+    new BlockObject(1100, 1000, 1000, 500);
     //new BlockObject(300, 400, 50, 50);
     // setup your game here - means: Create instances of the GameObjects that belong to your game.
     // e.g.: 

@@ -3,12 +3,12 @@ const global = {};
 global.canvas = document.querySelector("#canvas");
 global.ctx = canvas.getContext("2d");
 
-global.canvas.height = 529;
-global.canvas.width = window.innerWidth;
+global.canvas.width = 1920;
+global.canvas.height = 1080;
 
 global.background = document.getElementById("background");
-global.background.setAttribute("style", "width:" + canvas.width + "px");
 
+global.isDead = false;
 global.gameState = "mainMenu";
 global.gameFirstStart = true;
 global.prevTotalRunningTime = 0;
