@@ -2,12 +2,25 @@ const global = {};
 
 global.canvas = document.querySelector("#canvas");
 global.ctx = canvas.getContext("2d");
+
+global.canvas.height = 529;
+global.canvas.width = window.innerWidth;
+
+global.background = document.getElementById("background");
+global.background.setAttribute("style", "width:" + canvas.width + "px");
+
+global.gameState = "mainMenu";
+global.gameFirstStart = true;
 global.prevTotalRunningTime = 0;
 global.deltaTime = 0;
 global.allGameObjects = [];
 global.playerObject = {};
 global.backgroundShift = 0;
 global.backgroundMaxShift = -600;
+global.gravityForce = 9.8;
+global.pixelToMeter = 100;
+global.leftMoveTrigger;
+global.rightMoveTrigger;
 
 global.getCanvasBounds = function () {
     let bounds =  {
@@ -21,7 +34,7 @@ global.getCanvasBounds = function () {
 }
 
 global.checkCollisionWithAnyOther = function (givenObject) {
-    for (let i = 0; i < global.allGameObjects.length; i++) {
+    for (let i = givenObject.index; i < global.allGameObjects.length; i++) {
         let otherObject = global.allGameObjects[i];
         if (otherObject.active == true) {
             let collisionHappened = this.detectBoxCollision(givenObject, otherObject);
@@ -32,6 +45,7 @@ global.checkCollisionWithAnyOther = function (givenObject) {
         }
     }
 }
+
 
 global.detectBoxCollision = function (gameObject1, gameObject2) {
     let box1 = gameObject1.getBoxBounds();
@@ -47,5 +61,6 @@ global.detectBoxCollision = function (gameObject1, gameObject2) {
     }
     return false;
 }
+
 
 export { global }

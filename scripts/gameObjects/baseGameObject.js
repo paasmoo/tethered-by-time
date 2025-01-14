@@ -9,6 +9,19 @@ class BaseGameObject {
     previousY = 0;
     width = 50;
     height = 50;
+    useGravityForces = false;
+    blockGravityForces = false;
+    prevFallingVelocity = 0;
+    index = -1;
+
+    physicsData = {
+        "fallVelocity": 0,
+        "terminalVelocity": 53,
+        "jumpForce": 0, 
+        "prevFallingVelocity": 0,
+        "jumpForceDecay": 2,
+        "isGrounded": false
+    }
 
     animationData = {
         "animationSprites": [],
@@ -22,7 +35,7 @@ class BaseGameObject {
     storePositionOfPreviousFrame = function () {
         this.previousX = this.x;
         this.previousY = this.y;
-    }
+    };
 
     getBoxBounds = function () {
         let bounds = {
@@ -36,6 +49,58 @@ class BaseGameObject {
 
     update = function () { 
 
+    };
+
+    applyGravity = function () {
+        if (!this.useGravityForces)
+            return;
+       
+        this.physicsData.fallVelocity += global.gravityForce * global.deltaTime * global.pixelToMeter;
+
+        if (this.physicsData.jumpForce > 0) {
+            if (this.physicsData.isGrounded == true) {
+               this.physicsData.fallVelocity = 0;
+            }
+            this.physicsData.isGrounded = false;
+            this.physicsData.fallVelocity -= (global.gravityForce * global.deltaTime * global.pixelToMeter)  * 2;
+            this.physicsData.jumpForce -= this.physicsData.jumpForceDecay * global.deltaTime;
+            this.physicsData.jumpForce = Math.max(0, this.physicsData.jumpForce);
+            if (this.physicsData.fallVelocity > 0 || this.physicsData.jumpForce == 0) {
+                this.physicsData.jumpForce = 0;
+            }
+        }
+  
+        if (this.physicsData.fallVelocity > this.physicsData.terminalVelocity * global.pixelToMeter) {
+            this.physicsData.fallVelocity = this.physicsData.terminalVelocity  * global.pixelToMeter;
+        }
+
+        this.y += (this.physicsData.fallVelocity * global.deltaTime + this.physicsData.prevFallingVelocity) / 2;
+        this.physicsData.prevFallingVelocity = this.physicsData.fallVelocity  * global.deltaTime;
+
+        for (let i = 0; i < global.allGameObjects.length; i++) {
+            let otherObject = global.allGameObjects[i];
+            if (otherObject.active == true && otherObject.blockGravityForces == true) {
+                let collisionHappened = global.detectBoxCollision(this, otherObject);
+                if (collisionHappened) {
+                        if (this.physicsData.fallVelocity > 0) {
+                            this.physicsData.isGrounded = true;
+                            this.y = otherObject.getBoxBounds().top - this.height - (this.getBoxBounds().bottom - (this.y + this.height)) - 0.1;
+                        }
+                        else if (this.physicsData.fallVelocity < 0) {
+                            this.y = otherObject.getBoxBounds().bottom  + 0.1;
+                        }
+                        this.physicsData.jumpForce = 0;
+                        this.physicsData.fallVelocity = 0;
+                }
+            }   
+        }    
+    };
+
+    setJumpForce = function (jumpForce) {
+        if (this.physicsData.isGrounded == true) 
+        {
+            this.physicsData.jumpForce = jumpForce;
+        }
     };
 
     draw = function () {
@@ -141,6 +206,7 @@ class BaseGameObject {
         this.previousX = x;
         this.previousY = y;
         global.allGameObjects.push(this);
+        this.index = global.allGameObjects.length - 1;
     }
 
 }
