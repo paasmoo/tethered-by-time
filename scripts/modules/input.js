@@ -2,7 +2,7 @@ import { global } from "./global.js";
 
 function move(event) {
 
-    if(global.gameState != "mainMenu") {
+    if(global.gameState != "mainMenu" && global.gameState != "won") {
         switch(event.key) {
             case "d":
                 if (global.playerObject.xVelocity == 0)
@@ -25,7 +25,7 @@ function move(event) {
 }
 
 function stop(event) {
-    if(global.gameState != "mainMenu") {
+    if(global.gameState != "mainMenu" && global.gameState != "won") {
         switch(event.key) {
             case "d":
                 global.playerObject.xVelocity = 0;
@@ -42,6 +42,10 @@ function menu(event) {
         case "Enter":
             if(global.gameState == "mainMenu") {
                 global.gameState = "level1";
+            } else if(global.gameState == "won") {
+                global.resetCanvas();
+                global.gameState = "level1";
+                
             }
     }
 }

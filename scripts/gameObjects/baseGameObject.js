@@ -17,9 +17,9 @@ class BaseGameObject {
     physicsData = {
         "fallVelocity": 0,
         "terminalVelocity": 53,
-        "jumpForce": 0, 
+        "jumpForce": 100, 
         "prevFallingVelocity": 0,
-        "jumpForceDecay": 2,
+        "jumpForceDecay": 0.18,
         "isGrounded": false
     }
 
@@ -52,24 +52,27 @@ class BaseGameObject {
     };
 
     applyGravity = function () {
+
         if (!this.useGravityForces)
             return;
        
         this.physicsData.fallVelocity += global.gravityForce * global.deltaTime * global.pixelToMeter;
-
+        
         if (this.physicsData.jumpForce > 0) {
+
+            this.physicsData.fallVelocity += -(global.gravityForce * global.deltaTime * global.pixelToMeter) + (global.gravityForce * global.deltaTime * global.pixelToMeter) * this.physicsData.jumpForceDecay;
             if (this.physicsData.isGrounded == true) {
-               this.physicsData.fallVelocity = 0;
+               this.physicsData.fallVelocity = -this.physicsData.jumpForce * global.pixelToMeter;
+               this.physicsData.prevFallingVelocity = this.physicsData.fallVelocity * global.deltaTime;
             }
+    
             this.physicsData.isGrounded = false;
-            this.physicsData.fallVelocity -= (global.gravityForce * global.deltaTime * global.pixelToMeter)  * 2;
-            this.physicsData.jumpForce -= this.physicsData.jumpForceDecay * global.deltaTime;
-            this.physicsData.jumpForce = Math.max(0, this.physicsData.jumpForce);
-            if (this.physicsData.fallVelocity > 0 || this.physicsData.jumpForce == 0) {
+     
+            if (this.physicsData.fallVelocity >= 0) {
                 this.physicsData.jumpForce = 0;
             }
         }
-  
+ 
         if (this.physicsData.fallVelocity > this.physicsData.terminalVelocity * global.pixelToMeter) {
             this.physicsData.fallVelocity = this.physicsData.terminalVelocity  * global.pixelToMeter;
         }
@@ -84,17 +87,20 @@ class BaseGameObject {
                 if (collisionHappened) {
                         if (this.physicsData.fallVelocity > 0) {
                             this.physicsData.isGrounded = true;
-                            this.y = otherObject.getBoxBounds().top - this.height - (this.getBoxBounds().bottom - (this.y + this.height)) - 0.1;
+                            this.y = otherObject.getBoxBounds().top - this.height - (this.getBoxBounds().bottom - (this.y + this.height)) - (global.deltaTime * 0.1);
                         }
                         else if (this.physicsData.fallVelocity < 0) {
-                            this.y = otherObject.getBoxBounds().bottom  + 0.1;
+                            this.y = otherObject.getBoxBounds().bottom - (this.getBoxBounds().top - this.y) - (global.deltaTime * 0.1);
                         }
                         this.physicsData.jumpForce = 0;
                         this.physicsData.fallVelocity = 0;
+                        this.physicsData.prevFallingVelocity = 0;
+                        this.physicsData.jumpForceStart = 0;
                 }
             }   
         }    
     };
+
 
     setJumpForce = function (jumpForce) {
         if (this.physicsData.isGrounded == true) 
@@ -104,8 +110,11 @@ class BaseGameObject {
     };
 
     draw = function () {
+        const adjustedX = this.x + global.backgroundShift / 2;
         let sprite = this.getNextSprite();
-        global.ctx.drawImage(sprite, this.x, this.y, this.width, this.height);
+        if(adjustedX + this.width > 0 && adjustedX < global.canvas.width) {
+            global.ctx.drawImage(sprite, adjustedX, this.y, this.width, this.height);
+        }
     };
 
     getNextSprite = function () {

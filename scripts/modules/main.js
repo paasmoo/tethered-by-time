@@ -16,13 +16,29 @@ function renderMenu() {
     ctx.fillText("Press [ ENTER ] to Start", global.canvas.width / 2, global.canvas.height / 2 + 20)
 }
 
+function renderWinMenu() {
+    const ctx = global.ctx;
+    
+    global.background.style.visibility = "hidden";
+    ctx.font = "48px Arial";
+    ctx.fillStyle = "red";
+    ctx.textAlign = "center";
+    ctx.fillText("YOU WIN!", global.canvas.width / 2, global.canvas.height / 2 - 50);
+    ctx.font = "24px Arial";
+    ctx.fillText("Press [ ENTER ] to Restart", global.canvas.width / 2, global.canvas.height / 2 + 20)
+}
+
 function gameLoop(totalRunningTime) {
     global.deltaTime = totalRunningTime - global.prevTotalRunningTime; // Time in milliseconds between frames
     global.deltaTime /= 1000; // Convert milliseconds to seconds for consistency in calculations
     global.prevTotalRunningTime = totalRunningTime;
 
     if(global.gameState == "mainMenu") {
+        global.hearts = 3;
         renderMenu();
+    } else if(global.gameState == "won") {
+        global.hearts = 3;
+        renderWinMenu();
     } else if(global.gameState == "level1") {
         if(global.gameFirstStart) {
             global.background.style.visibility = "visible";
@@ -31,14 +47,22 @@ function gameLoop(totalRunningTime) {
         }
         if(global.levelDone == true) {
             global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
-            global.gameState = "mainMenu";
+            global.gameState = "won";
             global.gameFirstStart = true;
             global.levelDone = false;
             global.allGameObjects = [];
-            renderMenu();
+
         } else if(global.isDead) {
+            console.log(global.hearts);
+            global.resetCanvas();
             global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
+            global.hearts--;
             global.isDead = false;
+
+            if(global.hearts < 0) {
+                global.gameState = "mainMenu";
+            }
+
             global.gameFirstStart = true;
             global.allGameObjects = [];
         } else {
@@ -60,13 +84,14 @@ function gameLoop(totalRunningTime) {
 }
 
 function setupGame() {
-    global.playerObject = new Skeleton(300, 1000, 128, 128);
+    global.playerObject = new Skeleton(100, 500, 128, 128);
     global.leftMoveTrigger = new MoveTrigger(100, 100, 20, 900, 100);
-    global.rightMoveTrigger = new MoveTrigger(800, 100, 20, 900, -100);
-    new BlockObject(0, 1000, 1000, 500);
+    global.rightMoveTrigger = new MoveTrigger(450, 100, 1000, 900, -100);
+    new BlockObject(0, 480, 500, 500);
+    new BlockObject(600, 480, 500, 500);
+    new BlockObject(1200, 480, 500, 500);
 
-    new BlockObject(1100, 1000, 1000, 500);
-    new Star(100, 900, 50, 50);
+    new Star(800, 400, 50, 50);
     //new BlockObject(300, 400, 50, 50);
     // setup your game here - means: Create instances of the GameObjects that belong to your game.
     // e.g.: 

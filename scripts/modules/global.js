@@ -3,8 +3,8 @@ const global = {};
 global.canvas = document.querySelector("#canvas");
 global.ctx = canvas.getContext("2d");
 
-global.canvas.width = 1920;
-global.canvas.height = 1080;
+global.canvas.width = 1000;
+global.canvas.height = 500;
 
 global.background = document.getElementById("background");
 
@@ -12,16 +12,22 @@ global.levelDone = false;
 global.isDead = false;
 global.gameState = "mainMenu";
 global.gameFirstStart = true;
+global.hearts = 3;
+
 global.prevTotalRunningTime = 0;
 global.deltaTime = 0;
 global.allGameObjects = [];
 global.playerObject = {};
 global.backgroundShift = 0;
-global.backgroundMaxShift = -600;
+global.backgroundMaxShift = -5000;
 global.gravityForce = 9.8;
-global.pixelToMeter = 100;
+global.pixelToMeter = 500;
 global.leftMoveTrigger;
 global.rightMoveTrigger;
+
+global.resetCanvas = function() {
+    global.backgroundShift = 0;
+}
 
 global.getCanvasBounds = function () {
     let bounds =  {
