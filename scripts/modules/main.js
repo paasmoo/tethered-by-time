@@ -3,6 +3,7 @@ import { Skeleton } from "../gameObjects/skeleton.js";
 import { MoveTrigger } from "../gameObjects/moveTrigger.js";
 import { BlockObject } from "../gameObjects/blockObject.js";
 import { Star } from "../gameObjects/star.js";
+import { Enemy } from "../gameObjects/enemy.js";
 
 function renderMenu() {
     const ctx = global.ctx;
@@ -62,13 +63,12 @@ function gameLoop(totalRunningTime) {
             global.allGameObjects = [];
 
         } else if(global.isDead) {
-            console.log(global.hearts);
             global.resetCanvas();
             global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
             global.hearts--;
             global.isDead = false;
 
-            if(global.hearts < 0) {
+            if(global.hearts == 0) {
                 global.gameState = "mainMenu";
             }
 
@@ -101,6 +101,8 @@ function setupGame() {
     new BlockObject(0, 480, 500, 500);
     new BlockObject(600, 480, 500, 500);
     new BlockObject(1200, 480, 500, 500);
+
+    new Enemy(600, 300, 100, 100);
 
     //new BlockObject(300, 400, 50, 50);
     // setup your game here - means: Create instances of the GameObjects that belong to your game.
