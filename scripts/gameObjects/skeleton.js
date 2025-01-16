@@ -24,7 +24,7 @@ class Skeleton extends BaseGameObject {
             global.playerObject.switchCurrentSprites(this.animationData.firstSpriteIndex, this.animationData.firstSpriteIndex);
         }
 
-        if(this.y > 500) {
+        if(this.y > global.canvas.height) {
             global.isDead = true;
         }
     }
