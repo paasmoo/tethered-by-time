@@ -5,17 +5,16 @@ function move(event) {
     if(global.gameState != "mainMenu" && global.gameState != "won") {
         switch(event.key) {
             case "d":
-                if (global.playerObject.xVelocity == 0)
-                    global.playerObject.switchCurrentSprites(27, 35);
-                global.playerObject.xVelocity = 200;
-                global.playerObject.yVelocity = 0;
-                console.log("velocity set");
+                    if (global.playerObject.xVelocity == 0)
+                        global.playerObject.switchCurrentSprites(27, 35);
+                    global.playerObject.xVelocity = 200 * global.modifier;
+                    global.playerObject.yVelocity = 0;
                 break;
             case "a":
-                if (global.playerObject.xVelocity == 0)
-                    global.playerObject.switchCurrentSprites(9, 17);
-                global.playerObject.xVelocity = -200;
-                global.playerObject.yVelocity = 0;
+                    if (global.playerObject.xVelocity == 0)
+                        global.playerObject.switchCurrentSprites(9, 17);
+                    global.playerObject.xVelocity = -200 * global.modifier;
+                    global.playerObject.yVelocity = 0;
                 break;
             case " ":
                 global.playerObject.setJumpForce(.8);

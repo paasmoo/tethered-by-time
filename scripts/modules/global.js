@@ -14,6 +14,8 @@ global.gameState = "mainMenu";
 global.gameFirstStart = true;
 global.hearts = 3;
 
+global.modifier = 1;
+
 global.prevTotalRunningTime = 0;
 global.deltaTime = 0;
 global.allGameObjects = [];

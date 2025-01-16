@@ -24,7 +24,6 @@ class MoveTrigger extends BaseGameObject {
             }
 
             global.backgroundShift += shiftBy * -1;
-
             if (global.backgroundShift < global.backgroundMaxShift) {
                 global.backgroundShift = global.backgroundMaxShift;
                 console.log("reached");

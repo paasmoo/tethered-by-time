@@ -3,7 +3,7 @@ import { Skeleton } from "../gameObjects/skeleton.js";
 import { MoveTrigger } from "../gameObjects/moveTrigger.js";
 import { BlockObject } from "../gameObjects/blockObject.js";
 import { Star } from "../gameObjects/star.js";
-import { Enemy } from "../gameObjects/enemy.js";
+import { gameModifiers } from "../gameModifiers.js";
 
 function renderMenu() {
     const ctx = global.ctx;
@@ -36,6 +36,29 @@ function drawUI() {
     ctx.fillStyle = "white";
 
     ctx.fillText("Hearts: " + global.hearts, 60, 30);
+}
+
+function getRandomModifiers(numModifiers) {
+    const selectedModifiers = [];
+
+    while(selectedModifiers.length < numModifiers) {
+        const randomIndex = Math.floor(Math.random() * gameModifiers.length);
+        const modifier = gameModifiers[randomIndex];
+
+        if(!selectedModifiers.includes(modifier)) {
+            selectedModifiers.push(modifier);
+        }
+    }
+
+    return selectedModifiers;
+}
+
+function applyModifiers() {
+    const selectedModifiers = getRandomModifiers(1);
+
+    selectedModifiers.forEach(modifier => {
+        modifier.apply();
+    });
 }
 
 function gameLoop(totalRunningTime) {
@@ -100,9 +123,9 @@ function setupGame() {
     global.rightMoveTrigger = new MoveTrigger(450, 100, 1000, 900, -100, "Right");
     new BlockObject(0, 480, 500, 500);
     new BlockObject(600, 480, 500, 500);
-    new BlockObject(1200, 480, 500, 500);
+    new BlockObject(1200, 480, 300, 500);
 
-    new Enemy(600, 300, 100, 100);
+    applyModifiers();
 
     //new BlockObject(300, 400, 50, 50);
     // setup your game here - means: Create instances of the GameObjects that belong to your game.
