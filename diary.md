@@ -15,3 +15,4 @@ Day 3 (16/01/2025)
 ---
 Fixed scrolling behaviour.
 Added basic UI for displaying hearts.
+Added game modifiers.

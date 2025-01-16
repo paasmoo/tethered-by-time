@@ -58,6 +58,7 @@ function applyModifiers() {
 
     selectedModifiers.forEach(modifier => {
         modifier.apply();
+        console.log(modifier.name);
     });
 }
 
@@ -69,6 +70,8 @@ function gameLoop(totalRunningTime) {
     if(global.gameState == "mainMenu") {
         global.hearts = 3;
         renderMenu();
+    } else if(global.gameState == "generateModifier") {
+
     } else if(global.gameState == "won") {
         global.hearts = 3;
         renderWinMenu();
@@ -91,12 +94,15 @@ function gameLoop(totalRunningTime) {
             global.hearts--;
             global.isDead = false;
 
+            global.allGameObjects = [];
+
             if(global.hearts == 0) {
                 global.gameState = "mainMenu";
+                global.gameFirstStart = true;
+            } else {
+                global.background.style.visibility = "visible";
+                resetGame();
             }
-
-            global.gameFirstStart = true;
-            global.allGameObjects = [];
         } else {
         global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height); // Completely clear the canvas for the next graphical output 
         
@@ -117,6 +123,15 @@ function gameLoop(totalRunningTime) {
     requestAnimationFrame(gameLoop); // This keeps the gameLoop running indefinitely
 }
 
+function resetGame() {
+    global.playerObject = new Skeleton(100, 500, 128, 128);
+    global.leftMoveTrigger = new MoveTrigger(100, 100, 20, 900, 100, "Left");
+    global.rightMoveTrigger = new MoveTrigger(450, 100, 1000, 900, -100, "Right");
+    new BlockObject(0, 480, 500, 500);
+    new BlockObject(600, 480, 500, 500);
+    new BlockObject(1200, 480, 300, 500);
+}
+
 function setupGame() {
     global.playerObject = new Skeleton(100, 500, 128, 128);
     global.leftMoveTrigger = new MoveTrigger(100, 100, 20, 900, 100, "Left");
@@ -126,16 +141,6 @@ function setupGame() {
     new BlockObject(1200, 480, 300, 500);
 
     applyModifiers();
-
-    //new BlockObject(300, 400, 50, 50);
-    // setup your game here - means: Create instances of the GameObjects that belong to your game.
-    // e.g.: 
-    /*    
-                global.playerObject = new PacMan(200, 300, 60, 60);
-                new Wall(0, 0, 100, 100);
-                new Candy(100, 100, 100, 100);
-    }*/
-   
 }
 
 requestAnimationFrame(gameLoop);

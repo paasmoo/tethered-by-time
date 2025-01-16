@@ -43,7 +43,7 @@ function menu(event) {
                 global.gameState = "level1";
             } else if(global.gameState == "won") {
                 global.resetCanvas();
-                global.gameState = "level1";
+                global.gameState = "mainMenu";
                 
             }
     }
