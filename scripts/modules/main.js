@@ -28,6 +28,15 @@ function renderWinMenu() {
     ctx.fillText("Press [ ENTER ] to Restart", global.canvas.width / 2, global.canvas.height / 2 + 20)
 }
 
+function drawUI() {
+    const ctx = global.ctx;
+
+    ctx.font = "20px Arial";
+    ctx.fillStyle = "white";
+
+    ctx.fillText("Hearts: " + global.hearts, 60, 30);
+}
+
 function gameLoop(totalRunningTime) {
     global.deltaTime = totalRunningTime - global.prevTotalRunningTime; // Time in milliseconds between frames
     global.deltaTime /= 1000; // Convert milliseconds to seconds for consistency in calculations
@@ -77,6 +86,8 @@ function gameLoop(totalRunningTime) {
                 global.allGameObjects[i].draw();
             }
         }
+
+        drawUI();
     }
     }
     
