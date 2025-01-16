@@ -110,7 +110,7 @@ class BaseGameObject {
     };
 
     draw = function () {
-        const adjustedX = this.x + global.backgroundShift / 2;
+        const adjustedX = this.x + global.backgroundShift;
         let sprite = this.getNextSprite();
         if(adjustedX + this.width > 0 && adjustedX < global.canvas.width) {
             global.ctx.drawImage(sprite, adjustedX, this.y, this.width, this.height);

@@ -6,7 +6,6 @@ class MoveTrigger extends BaseGameObject {
 
     update = function () {
         this.backGroundDiv.style.backgroundPositionX = global.backgroundShift + "px";
-        global.canvas.style.marginLeft =  global.backgroundShift  + "px";
     }
 
     draw = function () {
@@ -16,6 +15,14 @@ class MoveTrigger extends BaseGameObject {
     reactToCollision = function (collidingObject)   {
         if (collidingObject.name == "Skeleton") {
             let shiftBy = collidingObject.xVelocity * global.deltaTime;
+
+            if(this.name == "Right") {
+                if(collidingObject.x < this.x) {
+                    collidingObject.x = this.x;
+                    console.log("done!")
+                }
+            }
+
             global.backgroundShift += shiftBy * -1;
 
             if (global.backgroundShift < global.backgroundMaxShift) {
@@ -34,7 +41,7 @@ class MoveTrigger extends BaseGameObject {
 
     }
 
-    constructor(x, y, width, height) {
+    constructor(x, y, width, height, name) {
         super(x, y, width, height);
         //this.loadImages(["./images/apple.png"]);
         this.backGroundDiv = document.querySelector("#background");
