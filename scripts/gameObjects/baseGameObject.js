@@ -19,7 +19,7 @@ class BaseGameObject {
         "terminalVelocity": 53,
         "jumpForce": 100, 
         "prevFallingVelocity": 0,
-        "jumpForceDecay": 0.18,
+        "jumpForceDecay": 0.50,
         "isGrounded": false
     }
 

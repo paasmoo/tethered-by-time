@@ -1,18 +1,22 @@
 Day 1 (14/01/2025)
 ---
-Changed the ratio of my canvas to full screen.
-Added a win condition (pickup Star) and a death condition (fall below canvas)
-Added a main menu
+Adjusted canvas ratio to fullscreen.
+Added win condition (pickup Star) and death condition (fall below canvas).
+Implemented a main menu.
 
 Day 2 (15/01/2025)
 ---
-Changed the ratio to the original one.
-Fixed the win & death condition screen. (Didn't refresh the canvas and you couldn't see the character)
-Added a hearts system. If you loose all 3 hearts you restart at the main screen.
-Objects now move into the screen if they're outside of screen (but it's still a bit buggy)
+Reverted canvas ratio to original (because of pixel art).
+Fixed win and death screens (canvas now refreshes and shows character).
+Added a hearts system (restart at main menu after losing all 3 hearts).
+Objects now move into view if outside the screen (still buggy).
 
 Day 3 (16/01/2025)
 ---
-Fixed scrolling behaviour.
-Added basic UI for displaying hearts.
-Added game modifiers.
+Fixed scrolling behavior.
+Created a basic UI to display hearts.
+Introduced level modifiers.
+
+Day 4 (17/01/2025)
+---
+Added enemies (moving from left to right).

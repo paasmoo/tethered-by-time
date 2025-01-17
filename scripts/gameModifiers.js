@@ -2,19 +2,23 @@ import { global } from "./modules/global.js"
 
 const gameModifiers = [
     {
-        name: "Slower Movement, Lower Gravity",
-        description: "Your character moves slower and there's a lower gravity!",
+        name: "Slower Movement",
+        description: "Your character moves slower!",
         apply: function() {
             global.modifier = 0.5;
-            global.gravityForce = 3.5;
+        }
+    },
+    {
+        name: "Lower Gravity",
+        description: "It's like if you're in space!!",
+        apply: function() {
+            global.gravityForce = 1.3;
         }
     },
     {
         name: "Nothing",
         description: "Absolutely nothing happens!",
-        apply: function() {
-
-        }
+        apply: function() {}
     }
 ];
 

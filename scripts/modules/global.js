@@ -22,7 +22,7 @@ global.allGameObjects = [];
 global.playerObject = {};
 global.backgroundShift = 0;
 global.backgroundMaxShift = -5000;
-global.gravityForce = 9.8;
+global.gravityForce = 4.8;
 global.pixelToMeter = 500;
 global.leftMoveTrigger;
 global.rightMoveTrigger;
@@ -67,8 +67,8 @@ global.detectBoxCollision = function (gameObject1, gameObject2) {
         {
             return true;
         }
-    }
     return false;
+}
 }
 
 

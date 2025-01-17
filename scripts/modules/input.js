@@ -1,20 +1,27 @@
 import { global } from "./global.js";
 
+let dActive = false;
+let aActive = false;
+
 function move(event) {
 
     if(global.gameState != "mainMenu" && global.gameState != "won") {
         switch(event.key) {
             case "d":
-                    if (global.playerObject.xVelocity == 0)
-                        global.playerObject.switchCurrentSprites(27, 35);
+                    if(!dActive) {
+                        global.playerObject.switchCurrentSprites(6, 13);
+                    }
                     global.playerObject.xVelocity = 200 * global.modifier;
                     global.playerObject.yVelocity = 0;
+                    dActive = true;
                 break;
             case "a":
-                    if (global.playerObject.xVelocity == 0)
-                        global.playerObject.switchCurrentSprites(9, 17);
+                    if(!aActive) {
+                        global.playerObject.switchCurrentSprites(6, 13);
+                    }
                     global.playerObject.xVelocity = -200 * global.modifier;
                     global.playerObject.yVelocity = 0;
+                    aActive = true;
                 break;
             case " ":
                 global.playerObject.setJumpForce(.8);
@@ -27,10 +34,18 @@ function stop(event) {
     if(global.gameState != "mainMenu" && global.gameState != "won") {
         switch(event.key) {
             case "d":
-                global.playerObject.xVelocity = 0;
+                dActive = false;
+                if(!aActive) {
+                    global.playerObject.switchCurrentSprites(0,6);
+                    global.playerObject.xVelocity = 0;
+                }
                 break;
             case "a":
-                global.playerObject.xVelocity = 0;
+                aActive = false;
+                if(!dActive) {
+                    global.playerObject.switchCurrentSprites(0,6);
+                    global.playerObject.xVelocity = 0;
+                }
                 break;   
         }
     }

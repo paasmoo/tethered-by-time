@@ -3,6 +3,7 @@ import { Skeleton } from "../gameObjects/skeleton.js";
 import { MoveTrigger } from "../gameObjects/moveTrigger.js";
 import { BlockObject } from "../gameObjects/blockObject.js";
 import { Star } from "../gameObjects/star.js";
+import { Enemy } from "../gameObjects/enemy.js";
 import { gameModifiers } from "../gameModifiers.js";
 
 function renderMenu() {
@@ -133,12 +134,13 @@ function resetGame() {
 }
 
 function setupGame() {
-    global.playerObject = new Skeleton(100, 500, 128, 128);
+    global.playerObject = new Skeleton(100, 200, 100, 100);
     global.leftMoveTrigger = new MoveTrigger(100, 100, 20, 900, 100, "Left");
     global.rightMoveTrigger = new MoveTrigger(450, 100, 1000, 900, -100, "Right");
-    new BlockObject(0, 480, 500, 500);
+    new BlockObject(100, 480, 128, 128);
     new BlockObject(600, 480, 500, 500);
     new BlockObject(1200, 480, 300, 500);
+    new Enemy(400, 400, 64, 64, 400, 600, 5);
 
     applyModifiers();
 }
