@@ -20,3 +20,4 @@ Introduced level modifiers.
 Day 4 (17/01/2025)
 ---
 Added enemies (moving from left to right).
+Started working on drawing the sprites.
