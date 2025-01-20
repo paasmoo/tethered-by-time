@@ -147,7 +147,7 @@ function setupGame() {
     new BlockObject(100, 480, 128, 128);
     new BlockObject(600, 480, 500, 500);
     new BlockObject(1200, 480, 300, 500);
-    new Enemy(400, 400, 64, 64, 400, 600, 5);
+    new Enemy(300, 400, 64, 64, 300, 600, 2);
 
     applyModifiers();
 }
