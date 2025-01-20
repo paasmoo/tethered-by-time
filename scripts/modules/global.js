@@ -18,7 +18,7 @@ global.hearts = global.maxHearts;
 
 global.modifier = 1;
 
-global.timerDuration = 100;
+global.timerDuration = 70;
 global.timerRemaining = global.timerDuration;
 
 global.prevTotalRunningTime = 0;

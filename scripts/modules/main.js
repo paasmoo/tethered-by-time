@@ -35,13 +35,17 @@ function renderWinMenu() {
 function drawUI() {
     const ctx = global.ctx;
 
-    ctx.font = "20px Arial";
-    ctx.fillStyle = "white";
+    ctx.font = "30px 'VHSGothic', Arial";
+    
+    if(global.timerRemaining < 60) {
+        ctx.fillStyle = "red";
+    } else {
+        ctx.fillStyle = "white";
+    }
 
-    const minutes = Math.floor(global.timerRemaining / 60);
-    const seconds = global.timerRemaining % 60;
-    const timeString = `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
-    ctx.fillText("Time: " + timeString, global.canvas.width - 120, 30);
+    const seconds = global.timerRemaining;
+    const timeString = `${seconds < 10 ? "0" + seconds : seconds}`;
+    ctx.fillText(timeString, global.canvas.width - 100, 80);
 }
 
 function getRandomModifiers(numModifiers) {
