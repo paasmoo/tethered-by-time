@@ -21,3 +21,8 @@ Day 4 (17/01/2025)
 ---
 Added enemies (moving from left to right).
 Started working on drawing the sprites.
+
+Day 5 (20/01/2025)
+---
+Introduced a better logic to generate levels.
+Worked on drawing the sprites.
