@@ -182,10 +182,17 @@ class BaseGameObject {
         });
     }
 
-    switchCurrentSprites = function (firstSpriteIndex, lastSpriteIndex) {
-        this.animationData.currentSpriteIndex = firstSpriteIndex;
-        this.animationData.firstSpriteIndex = firstSpriteIndex;
-        this.animationData.lastSpriteIndex = lastSpriteIndex;
+    switchCurrentSprites = function (firstSpriteIndex, lastSpriteIndex, isIdle = false, skipTime = false) {
+        if(isIdle) {
+            this.animationData.timePerSprite = 0.3;
+        } else {
+            if(!skipTime) {
+                this.animationData.timePerSprite = 0.08;
+            }
+            this.animationData.currentSpriteIndex = firstSpriteIndex;
+            this.animationData.firstSpriteIndex = firstSpriteIndex;
+            this.animationData.lastSpriteIndex = lastSpriteIndex;
+        }
     }
 
     reactToCollision = function(collidingObject) {

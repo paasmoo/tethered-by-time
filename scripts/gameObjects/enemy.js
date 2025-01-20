@@ -2,7 +2,7 @@ import { BaseGameObject } from "./baseGameObject.js";
 import { global } from "../modules/global.js";
 
 class Enemy extends BaseGameObject {
-    blockGravityForces = true;
+    blockGravityForces = false;
     startX;
     endX;
     direction = 1;
@@ -13,9 +13,11 @@ class Enemy extends BaseGameObject {
         if(this.x > this.endX) {
             this.x = this.endX;
             this.direction = -1;
+            this.switchCurrentSprites(9,17);
         } else if(this.x < this.startX) {
             this.x = this.startX;
             this.direction = 1;
+            this.switchCurrentSprites(0,8);
         }
         
         this.x += this.direction * this.speed;
@@ -31,10 +33,13 @@ class Enemy extends BaseGameObject {
         super(x, y, width, height);
         this.startX = startX;
         this.endX = endX;
+
         if(speed) {
             this.speed = speed;
         }
-        this.loadImages(["./images/wall.jpg"]);
+
+        this.loadImagesFromSpritesheet(["./images/ghost.png"], 9, 2);
+        this.switchCurrentSprites(0,8);
     }
 }
 

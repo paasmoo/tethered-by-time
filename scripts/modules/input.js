@@ -9,7 +9,7 @@ function move(event) {
         switch (event.key) {
             case "d":
                 if (!dActive) {
-                    global.playerObject.switchCurrentSprites(6, 13);
+                    global.playerObject.switchCurrentSprites(0, 3);
                 }
                 global.playerObject.xVelocity = 200 * global.modifier;
                 global.playerObject.yVelocity = 0;
@@ -17,7 +17,7 @@ function move(event) {
                 break;
             case "a":
                 if (!aActive) {
-                    global.playerObject.switchCurrentSprites(6, 13);
+                    global.playerObject.switchCurrentSprites(4, 7);
                 }
                 global.playerObject.xVelocity = -200 * global.modifier;
                 global.playerObject.yVelocity = 0;
@@ -36,14 +36,14 @@ function stop(event) {
             case "d":
                 dActive = false;
                 if (!aActive) {
-                    global.playerObject.switchCurrentSprites(0, 6);
+                    global.playerObject.switchCurrentSprites(8, 9);
                     global.playerObject.xVelocity = 0;
                 }
                 break;
             case "a":
                 aActive = false;
                 if (!dActive) {
-                    global.playerObject.switchCurrentSprites(0, 6);
+                    global.playerObject.switchCurrentSprites(10, 11);
                     global.playerObject.xVelocity = 0;
                 }
                 break;

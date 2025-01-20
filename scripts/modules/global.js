@@ -12,7 +12,9 @@ global.levelDone = false;
 global.isDead = false;
 global.gameState = "mainMenu";
 global.gameFirstStart = true;
-global.hearts = 3;
+
+global.maxHearts = 3;
+global.hearts = global.maxHearts;
 
 global.modifier = 1;
 

@@ -9,9 +9,14 @@ class Star extends BaseGameObject {
         }
     }
 
+    update = function () {
+    }
+
     constructor (x, y, width, height) {
         super(x, y, width, height);
-        this.loadImages(["./images/wall.jpg"]);
+        this.loadImagesFromSpritesheet(["./images/finishFlag.png"], 2, 1);
+        this.switchCurrentSprites(0,1, false, true);
+        this.animationData.timePerSprite = 0.3;
     }
 }
 

@@ -6,6 +6,7 @@ import { Star } from "../gameObjects/star.js";
 import { Enemy } from "../gameObjects/enemy.js";
 import { gameModifiers } from "../gameModifiers.js";
 import { levels } from "../util/levels.js";
+import { Heart } from "../gameObjects/heart.js";
 
 function renderMenu() {
     const ctx = global.ctx;
@@ -36,8 +37,6 @@ function drawUI() {
 
     ctx.font = "20px Arial";
     ctx.fillStyle = "white";
-
-    ctx.fillText("Hearts: " + global.hearts, 60, 30);
 
     const minutes = Math.floor(global.timerRemaining / 60);
     const seconds = global.timerRemaining % 60;
@@ -132,7 +131,8 @@ function gameLoop(totalRunningTime) {
 
 const objectFactory = {
     Block: (x, y, width, height) => new BlockObject(x, y, width, height),
-    Enemy: (x, y, width, height, startX, endX, speed) => new Enemy(x, y, width, height, startX, endX, speed)
+    Enemy: (x, y, width, height, startX, endX, speed) => new Enemy(x, y, width, height, startX, endX, speed),
+    Finish: (x, y, width, height) => new Star(x, y, width, height)
 }
 
 function generateLevel(level) {
@@ -143,20 +143,42 @@ function generateLevel(level) {
     });
 }
 
+function createHeartsUI() {
+    let lastX = 20;
+    let remainingHearts = global.hearts;
+    for(let i=0;i<global.maxHearts;i++) {
+        if(remainingHearts <= 0) {
+            new Heart(lastX, 20, 100, 100, true)
+        } else {
+            new Heart(lastX, 20, 100, 100);
+        }
+
+        lastX = lastX + 70;
+        remainingHearts--;
+    }
+}
+
 function resetGame() {
     global.playerObject = new Skeleton(100, 200, 100, 100);
+    global.playerObject.switchCurrentSprites(8,9, true);
     global.leftMoveTrigger = new MoveTrigger(100, 100, 20, 900, 100, "Left");
     global.rightMoveTrigger = new MoveTrigger(450, 100, 1000, 900, -100, "Right");
     generateLevel(levels[0]);
+
+    createHeartsUI();
 }
 
 function setupGame() {
     global.startTimer();
 
     global.playerObject = new Skeleton(100, 200, 100, 100);
-    global.leftMoveTrigger = new MoveTrigger(100, 100, 20, 900, 100, "Left");
+    
+
+    global.leftMoveTrigger = new MoveTrigger(99, 100, 20, 900, 100, "Left");
     global.rightMoveTrigger = new MoveTrigger(450, 100, 1000, 900, -100, "Right");
     generateLevel(levels[0]);
+
+    createHeartsUI();
 
     applyModifiers();
 }

@@ -21,7 +21,7 @@ class Skeleton extends BaseGameObject {
         this.x += this.xVelocity * global.deltaTime;
         this.y += this.yVelocity * global.deltaTime;
         if (this.xVelocity == 0) {
-            global.playerObject.switchCurrentSprites(this.animationData.firstSpriteIndex, this.animationData.firstSpriteIndex);
+            global.playerObject.switchCurrentSprites(8,9, true);
         }
 
         if(this.y > global.canvas.height) {
@@ -37,7 +37,9 @@ class Skeleton extends BaseGameObject {
     constructor(x, y, width, height) {
         super(x, y, width, height);
         //this.loadImages(["./images/apple.png"]);
-        this.loadImagesFromSpritesheet("./images/testSprite.png", 8, 5);
+        this.loadImagesFromSpritesheet("./images/playerCharacter.png", 4, 3);
+
+        this.switchCurrentSprites(8,9);
     }
 }
 

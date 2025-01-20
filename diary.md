@@ -25,4 +25,6 @@ Started working on drawing the sprites.
 Day 5 (20/01/2025)
 ---
 Introduced a better logic to generate levels.
-Worked on drawing the sprites.
+Added remaining hearts to the UI (with self-drawn sprites).
+Added self-drawn sprites to character, enemies and flag (previously a star).
+Continued working on drawing the sprites.
