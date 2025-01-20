@@ -51,15 +51,15 @@ global.stopTimer = function () {
     }
 };
 
-global.resetCanvas = function() {
+global.resetCanvas = function () {
     global.backgroundShift = 0;
 }
 
 global.getCanvasBounds = function () {
-    let bounds =  {
+    let bounds = {
         "left": 0,
         "right": this.canvas.width,
-        "top": 0, 
+        "top": 0,
         "bottom": this.canvas.height
     }
 
@@ -84,15 +84,14 @@ global.detectBoxCollision = function (gameObject1, gameObject2) {
     let box1 = gameObject1.getBoxBounds();
     let box2 = gameObject2.getBoxBounds();
     if (gameObject1 != gameObject2) {
-        if (box1.top <= box2.bottom && 
-            box1.left <= box2.right && 
+        if (box1.top <= box2.bottom &&
+            box1.left <= box2.right &&
             box1.bottom >= box2.top &&
-            box1.right >= box2.left)
-        {
+            box1.right >= box2.left) {
             return true;
         }
-    return false;
-}
+        return false;
+    }
 }
 
 
