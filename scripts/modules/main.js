@@ -37,6 +37,11 @@ function drawUI() {
     ctx.fillStyle = "white";
 
     ctx.fillText("Hearts: " + global.hearts, 60, 30);
+
+    const minutes = Math.floor(global.timerRemaining / 60);
+    const seconds = global.timerRemaining % 60;
+    const timeString = `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
+    ctx.fillText("Time: " + timeString, global.canvas.width - 120, 30);
 }
 
 function getRandomModifiers(numModifiers) {
@@ -64,8 +69,8 @@ function applyModifiers() {
 }
 
 function gameLoop(totalRunningTime) {
-    global.deltaTime = totalRunningTime - global.prevTotalRunningTime; // Time in milliseconds between frames
-    global.deltaTime /= 1000; // Convert milliseconds to seconds for consistency in calculations
+    global.deltaTime = totalRunningTime - global.prevTotalRunningTime;
+    global.deltaTime /= 1000;
     global.prevTotalRunningTime = totalRunningTime;
 
     if(global.gameState == "mainMenu") {
@@ -83,12 +88,12 @@ function gameLoop(totalRunningTime) {
             global.gameFirstStart = false;
         }
         if(global.levelDone == true) {
+            global.stopTimer();
             global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
             global.gameState = "won";
             global.gameFirstStart = true;
             global.levelDone = false;
             global.allGameObjects = [];
-
         } else if(global.isDead) {
             global.resetCanvas();
             global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
@@ -134,6 +139,8 @@ function resetGame() {
 }
 
 function setupGame() {
+    global.startTimer();
+
     global.playerObject = new Skeleton(100, 200, 100, 100);
     global.leftMoveTrigger = new MoveTrigger(100, 100, 20, 900, 100, "Left");
     global.rightMoveTrigger = new MoveTrigger(450, 100, 1000, 900, -100, "Right");

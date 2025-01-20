@@ -16,6 +16,9 @@ global.hearts = 3;
 
 global.modifier = 1;
 
+global.timerDuration = 100;
+global.timerRemaining = global.timerDuration;
+
 global.prevTotalRunningTime = 0;
 global.deltaTime = 0;
 global.allGameObjects = [];
@@ -26,6 +29,27 @@ global.gravityForce = 4.8;
 global.pixelToMeter = 500;
 global.leftMoveTrigger;
 global.rightMoveTrigger;
+
+global.startTimer = function () {
+    global.timerRemaining = global.timerDuration; // Reset the timer to the full duration
+
+    global.timerInterval = setInterval(() => {
+        if (global.timerRemaining > 0) {
+            global.timerRemaining--;
+        } else {
+            clearInterval(global.timerInterval);
+            global.timerInterval = null; // Timer has ended
+            global.gameState = "mainMenu"; // Reset game or handle timer expiration logic
+        }
+    }, 1000);
+};
+
+global.stopTimer = function () {
+    if (global.timerInterval) {
+        clearInterval(global.timerInterval);
+        global.timerInterval = null;
+    }
+};
 
 global.resetCanvas = function() {
     global.backgroundShift = 0;
