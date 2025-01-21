@@ -32,7 +32,18 @@ Continued working on drawing the sprites.
 Day 6 (21/01/2025)
 ---
 Updated self-drawn sprites for enemies and the ground (It's now 32x32 pixel art).
-The ground is now based on tiles.
 Added coin object & coin UI with self-drawn sprites (collectable).
+Added a logo and background to title screen.
 Replaced flag with self-drawn star sprites.
 Fixed game states for dying (enemies & time ran out) & winning.
+Refactored a bit of code.
+
+TO-DO
+---
+Ground should be based on tiles.
+Add 2 new platform tiles.
+Add play button to title screen.
+Add controls & lore recap (skippable) to screen before game.
+Remake dead screen.
+Create 3 levels.
+Make a lost heart screen?
