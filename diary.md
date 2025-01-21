@@ -33,3 +33,4 @@ Day 6 (21/01/2025)
 ---
 Updated self-drawn sprites for enemies and the ground (It's now 32x32 pixel art).
 Added coin object with self-drawn sprites (collectable).
+Replaced flag with self-drawn star sprites.
