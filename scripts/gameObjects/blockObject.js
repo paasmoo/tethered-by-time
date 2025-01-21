@@ -14,7 +14,7 @@ class BlockObject extends BaseGameObject {
 
     constructor (x, y, width, height) {
         super(x, y, width, height);
-        this.loadImages(["./images/grassTile.png"]);
+        this.loadImages(["./images/grass.png"]);
     }
 }
 
