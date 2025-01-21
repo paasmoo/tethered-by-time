@@ -14,9 +14,9 @@ class Star extends BaseGameObject {
 
     constructor (x, y, width, height) {
         super(x, y, width, height);
-        this.loadImagesFromSpritesheet(["./images/finishFlag.png"], 2, 1);
-        this.switchCurrentSprites(0,1, false, true);
-        this.animationData.timePerSprite = 0.3;
+        this.loadImagesFromSpritesheet(["./images/coin.png"], 7, 2);
+        this.switchCurrentSprites(0,8, false, true);
+        this.animationData.timePerSprite = 0.08;
     }
 }
 

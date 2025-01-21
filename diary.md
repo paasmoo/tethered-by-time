@@ -26,5 +26,10 @@ Day 5 (20/01/2025)
 ---
 Introduced a better logic to generate levels.
 Added remaining hearts to the UI (with self-drawn sprites).
-Added self-drawn sprites to character, enemies and flag (previously a star).
+Added self-drawn sprites to character, enemies, flag (previously a star) and the ground.
 Continued working on drawing the sprites.
+
+Day 6 (21/01/2025)
+---
+Updated self-drawn sprites for enemies and the ground (It's now 32x32 pixel art).
+Added coin object with self-drawn sprites (collectable).
