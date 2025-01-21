@@ -39,12 +39,18 @@ global.startTimer = function () {
     global.timerRemaining = global.timerDuration; // Reset the timer to the full duration
 
     global.timerInterval = setInterval(() => {
-        if (global.timerRemaining > 0) {
+        if (global.timerRemaining > 1) {
             global.timerRemaining--;
         } else {
             clearInterval(global.timerInterval);
             global.timerInterval = null; // Timer has ended
-            global.gameState = "mainMenu"; // Reset game or handle timer expiration logic
+
+            global.resetCanvas();
+            global.allGameObjects = [];
+            global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
+            global.isDead = false;
+            global.gameState = "mainMenu";
+            global.gameFirstStart = true;
         }
     }, 1000);
 };

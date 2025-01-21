@@ -35,4 +35,4 @@ Updated self-drawn sprites for enemies and the ground (It's now 32x32 pixel art)
 The ground is now based on tiles.
 Added coin object & coin UI with self-drawn sprites (collectable).
 Replaced flag with self-drawn star sprites.
-Fixed game states for dying & winning.
+Fixed game states for dying (enemies & time ran out) & winning.
