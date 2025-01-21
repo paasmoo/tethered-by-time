@@ -1,6 +1,6 @@
-import { global } from "./modules/global.js"
+import { global } from "../modules/global.js"
 
-const gameModifiers = [
+const levelModifiers = [
     /*{
         name: "Slower Movement",
         description: "Your character moves slower!",
@@ -22,4 +22,4 @@ const gameModifiers = [
     }*/
 ];
 
-export { gameModifiers };
+export { levelModifiers };

@@ -1,7 +1,7 @@
 import { BaseGameObject } from "./baseGameObject.js";
 import { global } from "../modules/global.js";
 
-class Skeleton extends BaseGameObject {
+class Player extends BaseGameObject {
     name = "Skeleton";
     xVelocity = 0;
     yVelocity = 0;
@@ -43,4 +43,4 @@ class Skeleton extends BaseGameObject {
     }
 }
 
-export {Skeleton}
+export {Player}

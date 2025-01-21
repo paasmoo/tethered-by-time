@@ -1,11 +1,10 @@
 const global = {};
 
+// Canvas & Background
 global.canvas = document.querySelector("#canvas");
-global.ctx = canvas.getContext("2d");
-
 global.canvas.width = 1000;
 global.canvas.height = 500;
-
+global.ctx = canvas.getContext("2d");
 global.background = document.getElementById("background");
 
 global.levelDone = false;
@@ -53,14 +52,14 @@ global.startTimer = function () {
             global.gameFirstStart = true;
         }
     }, 1000);
-};
+}
 
 global.stopTimer = function () {
     if (global.timerInterval) {
         clearInterval(global.timerInterval);
         global.timerInterval = null;
     }
-};
+}
 
 global.resetCanvas = function () {
     global.backgroundShift = 0;
@@ -90,7 +89,6 @@ global.checkCollisionWithAnyOther = function (givenObject) {
     }
 }
 
-
 global.detectBoxCollision = function (gameObject1, gameObject2) {
     let box1 = gameObject1.getBoxBounds();
     let box2 = gameObject2.getBoxBounds();
@@ -104,6 +102,5 @@ global.detectBoxCollision = function (gameObject1, gameObject2) {
         return false;
     }
 }
-
 
 export { global }
