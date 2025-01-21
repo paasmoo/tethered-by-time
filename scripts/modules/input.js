@@ -57,9 +57,8 @@ function menu(event) {
             if (global.gameState == "mainMenu") {
                 global.gameState = "level1";
             } else if (global.gameState == "won") {
-                global.resetCanvas();
                 global.gameState = "mainMenu";
-
+                global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height); 
             }
     }
 }

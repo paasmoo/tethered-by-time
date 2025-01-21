@@ -1,5 +1,5 @@
-import { BaseGameObject } from "./baseGameObject.js";
-import { global } from "../modules/global.js";
+import { BaseGameObject } from "../baseGameObject.js";
+import { global } from "../../modules/global.js";
 
 
 class Heart extends BaseGameObject {

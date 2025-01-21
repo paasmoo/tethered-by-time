@@ -7,10 +7,12 @@
     position: relative;
     width: 1000px; /* change according to your game */
     height: 500px; /* change according to your game */
+    border: 5px solid black;
 }
 
 #canvas {
     position: absolute;
+    display: block;
     left: 0;
     top: 0;
 }
@@ -28,4 +30,8 @@
 
 body {
     margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }

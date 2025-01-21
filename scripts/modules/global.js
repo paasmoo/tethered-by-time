@@ -21,6 +21,9 @@ global.modifier = 1;
 global.timerDuration = 70;
 global.timerRemaining = global.timerDuration;
 
+global.coinsCollected = 0;
+global.coins = [];
+
 global.prevTotalRunningTime = 0;
 global.deltaTime = 0;
 global.allGameObjects = [];
