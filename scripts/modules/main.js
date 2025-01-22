@@ -73,61 +73,30 @@ const objectFactory = {
     Finish: (x, y, width, height) => new Star(x, y, width, height)
 }
 
+function drawImageCentered(imageSrc, scale = 1, yOffset = 0) {
+    const ctx = global.ctx;
+
+    let image = new Image();
+    image.src = imageSrc;
+    image.onload = () => {
+        const x = (global.canvas.width - image.width * scale) / 2;
+        const y = (global.canvas.height - image.height * scale) / 2 + yOffset;
+        ctx.drawImage(image, x, y, image.width * scale, image.height * scale);
+    }
+}
+
 function renderMenu() {
     const ctx = global.ctx;
     global.background.style.visibility = "hidden";
 
-    let image = new Image();
-    image.src = "../images/ui/background.png";
-    ctx.drawImage(image, 0, 0, image.width, image.height);
+    drawImageCentered("../images/ui/background.png");
+    drawImageCentered("../images/ui/logo.png", 1/3, -100);
+    const playButtonState = global.buttonSelected === "play" ? "1" : "0";
+    drawImageCentered(`../images/ui/buttons/playButton${playButtonState}.png`, 1, 10);
 
-    image = new Image();
-    image.src = "../images/ui/logo.png";
-    ctx.drawImage(image, 
-        (global.canvas.width - image.width/3) / 2, 
-        (global.canvas.height - image.height/3) / 2 - 100, 
-        image.width/3, image.height/3);
+    const infoButtonState = global.buttonSelected === "info" ? "1" : "0";
+    drawImageCentered(`../images/ui/buttons/infoButton${infoButtonState}.png`, 1, 100);
 
-    if(global.buttonSelected == "play") {
-        image = new Image();
-        image.src = "../images/ui/buttons/playButton1.png";
-        ctx.drawImage(image, 
-        (global.canvas.width - image.width) / 2, 
-        (global.canvas.height - image.height) / 2 + 10, 
-        image.width, 
-        image.height
-        )
-    } else {
-        image = new Image();
-        image.src = "../images/ui/buttons/playButton0.png";
-        ctx.drawImage(image, 
-        (global.canvas.width - image.width) / 2, 
-        (global.canvas.height - image.height) / 2 + 10, 
-        image.width, 
-        image.height
-        )
-    }
-
-    if(global.buttonSelected == "info") {
-        image = new Image();
-        image.src = "../images/ui/buttons/infoButton1.png";
-        ctx.drawImage(image, 
-        (global.canvas.width - image.width) / 2, 
-        (global.canvas.height - image.height) / 2 + 100, 
-        image.width, 
-        image.height
-        )
-    } else {
-        image = new Image();
-        image.src = "../images/ui/buttons/infoButton0.png";
-        ctx.drawImage(image, 
-        (global.canvas.width - image.width) / 2, 
-        (global.canvas.height - image.height) / 2 + 100, 
-        image.width, 
-        image.height
-        )
-    }
-    
     ctx.font = "10px 'VHSGothic', Arial";
     ctx.fillStyle = "gray";
     ctx.textAlign = "center";
@@ -163,10 +132,47 @@ function renderDeadMenu() {
     ctx.fillText("Press [ ENTER ] to go back to the main menu.", global.canvas.width / 2, global.canvas.height / 2 + 40)
 }
 
+function drawCenteredText(text, x, y, lineHeight) {
+    const ctx = global.ctx;
+    const lines = text.split('\n');
+    const totalHeight = lines.length * lineHeight;
+
+    let startY = y - totalHeight / 2;
+
+    for (let i = 0; i < lines.length; i++) {
+        ctx.fillText(lines[i], x, startY + (i * lineHeight));
+    }
+}
+
+function renderLoreScreen() {
+    const ctx = global.ctx;
+
+    global.background.style.visibility = "hidden";
+    ctx.fillStyle = "black";
+    ctx.fillRect(0,0, global.canvas.width, global.canvas.height);
+
+    const multilineText = "Haunted by visions of a witch and an ancient artifact, Aurosa journeys to a\nmagical mountain. There, she discovers an artifact that manipulates time,\nbut it's fragile and unstable. As she climbs, the mountain changes, and\nenemies stand in her way. To find the witch, she must navigate the\nmountain's shifting power and unlock its secrets.";
+    const lineHeight = 30;
+
+    const centerX = global.canvas.width / 2;
+    const centerY = global.canvas.height / 2;
+
+    ctx.font = "17px 'VHSGothic', Arial";
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+
+    drawCenteredText(multilineText, centerX, centerY-30, lineHeight);
+
+    ctx.fillStyle = "gray";
+    ctx.font = "15px 'VHSGothic', Arial";
+    ctx.fillText("Press [ ENTER ] to start Aurosa's journey.", global.canvas.width / 2, global.canvas.height / 2 + 80)
+}
+
 function drawUI() {
     const ctx = global.ctx;
 
     ctx.font = "30px 'VHSGothic', Arial";
+    ctx.textAlign = "right";
     
     if(global.timerRemaining < 60) {
         ctx.fillStyle = "red";
@@ -174,9 +180,7 @@ function drawUI() {
         ctx.fillStyle = "white";
     }
 
-    const seconds = global.timerRemaining;
-    const timeString = `${seconds < 10 ? "0" + seconds : seconds}`;
-    ctx.fillText(timeString, global.canvas.width - 100, 80);
+    ctx.fillText(global.timerRemaining, global.canvas.width - 100, 80);
 }
 
 function createHeartsUI() {
@@ -204,7 +208,8 @@ function writeCoins() {
     ctx.font = "20px 'VHSGothic', Arial";
     ctx.fillStyle = "white";
 
-    ctx.fillText("x "+global.coinsCollected, 125, 135);
+    ctx.textAlign = "right";
+    ctx.fillText("x "+global.coinsCollected, 145, 135);
 }
 
 function getRandomModifiers(numModifiers) {
@@ -294,8 +299,10 @@ function gameLoop(totalRunningTime) {
     if (global.gameState == "mainMenu") {
         global.hearts = 3;
         renderMenu();
+    } else if (global.gameState == "lore") {
+        renderLoreScreen();
     } else if (global.gameState == "generateModifier") {
-
+        renderModifier();
     } else if (global.gameState == "won") {
         global.hearts = 3;
         renderWinMenu();
@@ -317,6 +324,7 @@ function gameLoop(totalRunningTime) {
             global.levelDone = false;
             global.allGameObjects = [];
         } else if (global.isDead) {
+            global.stopTimer();
             global.resetCanvas();
             global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
             global.hearts--;
@@ -325,12 +333,12 @@ function gameLoop(totalRunningTime) {
             global.allGameObjects = [];
 
             if (global.hearts == 0) {
-                global.stopTimer();
                 global.gameState = "dead";
                 global.gameFirstStart = true;
             } else {
                 global.background.style.visibility = "visible";
                 resetGame();
+                global.startTimer();
             }
         } else {
             global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height); // Completely clear the canvas for the next graphical output 

@@ -70,8 +70,10 @@ function menu(event) {
         case "Enter":
             if (global.gameState == "mainMenu") {
                 if(global.buttonSelected == "play") {
-                    global.gameState = "level1";
+                    global.gameState = "lore";
                 }
+            } else if (global.gameState == "lore") {
+                global.gameState = "level1";
             } else if (global.gameState == "won") {
                 global.gameState = "mainMenu";
                 global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height); 

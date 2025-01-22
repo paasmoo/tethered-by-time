@@ -21,7 +21,7 @@ global.hearts = global.maxHearts;
 
 global.modifier = 1;
 
-global.timerDuration = 70;
+global.timerDuration = 10;
 global.timerRemaining = global.timerDuration;
 
 global.coinsCollected = 0;
@@ -52,7 +52,7 @@ global.startTimer = function () {
             global.allGameObjects = [];
             global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
             global.isDead = false;
-            global.gameState = "mainMenu";
+            global.gameState = "dead";
             global.gameFirstStart = true;
         }
     }, 1000);

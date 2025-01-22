@@ -43,11 +43,13 @@ Day 7 (22/01/2025)
 Block objects are now based on a 16-tile spritesheet.
 Bug fixes regarding MoveTrigger and background shift.
 Implemented a screen that shows upon perma death (losing all 3 hearts).
+Added a play & info button the title screen.
+Added a lore recap that shows before the first level is shown.
 
 TO-DO
 ---
 Add 2 new platform tiles.
-Add play button to title screen.
-Add controls & lore recap (skippable) to screen before game.
+Add 1 new enemy type: spikes.
+Add controls to menu.
 Create 3 levels.
 Make a lost heart screen?
