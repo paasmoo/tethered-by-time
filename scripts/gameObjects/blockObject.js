@@ -1,5 +1,4 @@
 import { BaseGameObject } from "./baseGameObject.js";
-import { global } from "../modules/global.js";
 
 
 class BlockObject extends BaseGameObject {
@@ -12,9 +11,10 @@ class BlockObject extends BaseGameObject {
         }
     }
 
-    constructor (x, y, width, height) {
+    constructor (x, y, width, height, type) {
         super(x, y, width, height);
-        this.loadImages(["./images/platforms/grass.png"]);
+        this.loadImagesFromSpritesheet(["./images/platforms/grass.png"], 4, 4);
+        this.switchCurrentSprites(type, type);
     }
 }
 

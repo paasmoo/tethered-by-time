@@ -19,7 +19,68 @@ import { Coin } from "../gameObjects/coin.js";
 
 // ObjectFactory for level creation
 const objectFactory = {
-    Block: (x, y, width, height) => new BlockObject(x, y, width, height),
+    Block: (x, y, height, length) => {
+        if(length == 1) {
+            if(height == 1) {
+                new BlockObject(x, y, global.platformSize, global.platformSize, 3);
+            } else {
+                new BlockObject(x, y, global.platformSize, global.platformSize, 4);
+                let lastY = y + global.platformSize - 1;
+
+            for(let i=0;i<height-2;i++) {
+                new BlockObject(x, lastY, global.platformSize, global.platformSize, 5);
+                lastY = lastY + global.platformSize - 1;
+            }
+
+            new BlockObject(x, lastY, global.platformSize, global.platformSize, 6);
+            }
+        } else if(height == 1 && length != 1) {
+            new BlockObject(x, y, global.platformSize, global.platformSize, 0);
+            let lastX = x + global.platformSize - 1;
+
+            for(let i=0;i<length-2;i++) {
+                new BlockObject(lastX, y, global.platformSize, global.platformSize, 1);
+                lastX = lastX + global.platformSize - 1;
+            }
+
+            new BlockObject(lastX, y, global.platformSize, global.platformSize, 2);
+        } else {
+            new BlockObject(x, y, global.platformSize, global.platformSize, 7);
+            let lastX = x + global.platformSize - 1;
+
+            for(let i=0;i<length-2;i++) {
+                new BlockObject(lastX, y, global.platformSize, global.platformSize, 8);
+                lastX = lastX + global.platformSize - 1;
+            }
+
+            new BlockObject(lastX, y, global.platformSize, global.platformSize, 9);
+
+            lastX = x;
+            let lastY = y + global.platformSize - 1;
+
+            for(let i=0;i<height-2;i++) {
+                new BlockObject(lastX, lastY, global.platformSize, global.platformSize, 10);
+                lastX = lastX + global.platformSize - 1;
+                for(let j=0;j<length-2;j++) {
+                    new BlockObject(lastX, lastY, global.platformSize, global.platformSize, 11);
+                    lastX = lastX + global.platformSize - 1;
+                }
+                new BlockObject(lastX, lastY, global.platformSize, global.platformSize, 12);
+                lastY = lastY + global.platformSize - 1;
+            }
+
+            lastX = x;
+            new BlockObject(lastX, lastY, global.platformSize, global.platformSize, 13);
+            lastX = x + global.platformSize - 1;
+
+            for(let i=0;i<length-2;i++) {
+                new BlockObject(lastX, lastY, global.platformSize, global.platformSize, 14);
+                lastX = lastX + global.platformSize - 1;
+            }
+
+            new BlockObject(lastX, lastY, global.platformSize, global.platformSize, 15);
+        }
+    },
     Enemy: (x, y, width, height, startX, endX, speed) => new Enemy(x, y, width, height, startX, endX, speed),
     Finish: (x, y, width, height) => new Star(x, y, width, height)
 }

@@ -7,6 +7,8 @@ global.canvas.height = 500;
 global.ctx = canvas.getContext("2d");
 global.background = document.getElementById("background");
 
+global.platformSize = 80;
+
 global.levelDone = false;
 global.isDead = false;
 global.gameState = "mainMenu";
