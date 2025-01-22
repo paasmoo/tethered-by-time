@@ -9,20 +9,24 @@ global.canvas.height = 500;
 global.ctx = canvas.getContext("2d");
 global.background = document.getElementById("background");
 
-global.currentLevel = 1;
-
-global.buttonSelected = "play";
-global.modifierGenerated = false;
-global.currentModifiers = [];
-
 global.platformSize = 80;
 
+global.currentLevel = 1;
+global.buttonSelected = "play";
 global.levelDone = false;
 global.isDead = false;
 global.gameState = GameState.TITLE_SCREEN;
 global.gameFirstStart = true;
 
+global.modifierGenerated = false;
+global.currentModifiers = [];
+
 global.hearts = global.maxHearts;
+
+global.coinsCollected = 0;
+global.coins = [];
+
+global.timerRemaining = global.timerDuration;
 
 // modifiable by modifier
 global.wrapper = document.getElementById("gameContainer").style.transform = "scale(1, 1)";
@@ -32,11 +36,6 @@ global.moveModifier = 1;
 global.enemyModifier = 1;
 global.inputSwitched = false;
 global.gravityForce = 2.8;
-
-global.timerRemaining = global.timerDuration;
-
-global.coinsCollected = 0;
-global.coins = [];
 
 global.prevTotalRunningTime = 0;
 global.deltaTime = 0;
@@ -48,10 +47,19 @@ global.pixelToMeter = 500;
 global.leftMoveTrigger;
 global.rightMoveTrigger;
 
-global.resetModifier = function (fullReset = false) {
+global.reset = function (fullReset = false) {
     if(fullReset) {
         global.hearts = 3;
         global.maxHearts = 3;
+        global.currentLevel = 1;
+        global.buttonSelected = "play";
+        global.levelDone = false;
+        global.isDead = false;
+        global.gameState = GameState.TITLE_SCREEN;
+        global.gameFirstStart = true;
+        global.coinsCollected = 0;
+        global.coins = [];
+        global.backgroundShift = 0;
     }
 
     global.wrapper = document.getElementById("gameContainer").style.transform = "scale(1, 1)";
@@ -89,10 +97,6 @@ global.stopTimer = function () {
         clearInterval(global.timerInterval);
         global.timerInterval = null;
     }
-}
-
-global.resetCanvas = function () {
-    global.backgroundShift = 0;
 }
 
 global.getCanvasBounds = function () {

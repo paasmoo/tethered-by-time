@@ -57,15 +57,12 @@ function drawText(text, x, y, size, color) {
 }
 
 function drawBlackscreen() {
-    global.resetCanvas();
-
     global.background.style.visibility = "hidden";
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, global.canvas.width, global.canvas.height);
 }
 
 function renderTitleScreen() {
-    global.resetCanvas();
     global.background.style.visibility = "hidden";
 
     drawCenteredImage("../images/ui/background.png");
@@ -155,7 +152,7 @@ function renderModifierOverview() {
 
 function renderGameOver() {
     global.background.style.visibility = "hidden";
-    
+
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, global.canvas.width, global.canvas.height);
 

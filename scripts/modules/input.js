@@ -103,7 +103,7 @@ function menu(event) {
         case "Enter":
             if (global.gameState == GameState.TITLE_SCREEN) {
                 if (global.buttonSelected == "play") {
-                    global.resetModifier(true);
+                    global.reset(true);
                     global.gameState = GameState.LORE_RECAP;
                 }
             } else if (global.gameState == GameState.LORE_RECAP) {
