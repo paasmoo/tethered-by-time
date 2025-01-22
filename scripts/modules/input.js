@@ -53,9 +53,25 @@ function stop(event) {
 
 function menu(event) {
     switch (event.key) {
+        case "s":
+            if (global.gameState == "mainMenu") {
+                if(global.buttonSelected != "info") {
+                    global.buttonSelected = "info"
+                }
+            }
+            break;
+        case "w":
+            if (global.gameState == "mainMenu") {
+                if(global.buttonSelected != "play") {
+                    global.buttonSelected = "play";
+                }
+            }
+            break;
         case "Enter":
             if (global.gameState == "mainMenu") {
-                global.gameState = "level1";
+                if(global.buttonSelected == "play") {
+                    global.gameState = "level1";
+                }
             } else if (global.gameState == "won") {
                 global.gameState = "mainMenu";
                 global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height); 

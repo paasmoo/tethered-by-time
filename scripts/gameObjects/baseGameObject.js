@@ -198,15 +198,17 @@ class BaseGameObject {
     reactToCollision = function(collidingObject) {
     }
 
-    constructor(x, y, width, height) {
+    constructor(x, y, width, height, uiElement = false) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.previousX = x;
         this.previousY = y;
-        global.allGameObjects.push(this);
-        this.index = global.allGameObjects.length - 1;
+        if(!uiElement) {
+            global.allGameObjects.push(this);
+            this.index = global.allGameObjects.length - 1;
+        }
     }
 }
 

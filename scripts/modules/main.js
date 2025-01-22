@@ -83,13 +83,55 @@ function renderMenu() {
 
     image = new Image();
     image.src = "../images/ui/logo.png";
-    ctx.drawImage(image, (global.canvas.width - image.width/3) / 2, (global.canvas.height - image.height/3) / 2 - 60, image.width/3, image.height/3);
+    ctx.drawImage(image, 
+        (global.canvas.width - image.width/3) / 2, 
+        (global.canvas.height - image.height/3) / 2 - 100, 
+        image.width/3, image.height/3);
 
-    ctx.font = "48px Arial";
-    ctx.fillStyle = "red";
+    if(global.buttonSelected == "play") {
+        image = new Image();
+        image.src = "../images/ui/buttons/playButton1.png";
+        ctx.drawImage(image, 
+        (global.canvas.width - image.width) / 2, 
+        (global.canvas.height - image.height) / 2 + 10, 
+        image.width, 
+        image.height
+        )
+    } else {
+        image = new Image();
+        image.src = "../images/ui/buttons/playButton0.png";
+        ctx.drawImage(image, 
+        (global.canvas.width - image.width) / 2, 
+        (global.canvas.height - image.height) / 2 + 10, 
+        image.width, 
+        image.height
+        )
+    }
+
+    if(global.buttonSelected == "info") {
+        image = new Image();
+        image.src = "../images/ui/buttons/infoButton1.png";
+        ctx.drawImage(image, 
+        (global.canvas.width - image.width) / 2, 
+        (global.canvas.height - image.height) / 2 + 100, 
+        image.width, 
+        image.height
+        )
+    } else {
+        image = new Image();
+        image.src = "../images/ui/buttons/infoButton0.png";
+        ctx.drawImage(image, 
+        (global.canvas.width - image.width) / 2, 
+        (global.canvas.height - image.height) / 2 + 100, 
+        image.width, 
+        image.height
+        )
+    }
+    
+    ctx.font = "10px 'VHSGothic', Arial";
+    ctx.fillStyle = "gray";
     ctx.textAlign = "center";
-    ctx.font = "24px Arial";
-    ctx.fillText("Press [ ENTER ] to Start", global.canvas.width / 2, global.canvas.height / 2 + 20)
+    ctx.fillText("by Pascal Pamer", global.canvas.width / 2, global.canvas.height - 5);
 }
 
 function renderWinMenu() {
