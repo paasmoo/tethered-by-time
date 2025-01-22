@@ -7,6 +7,8 @@ global.canvas.height = 500;
 global.ctx = canvas.getContext("2d");
 global.background = document.getElementById("background");
 
+global.currentLevel = 1;
+
 global.buttonSelected = "play";
 global.modifierGenerated = false;
 global.currentModifiers = [];
@@ -18,12 +20,17 @@ global.isDead = false;
 global.gameState = "mainMenu";
 global.gameFirstStart = true;
 
-global.maxHearts = 3;
 global.hearts = global.maxHearts;
 
-global.modifier = 1;
+// modifiable by modifier
+global.wrapper = document.getElementById("gameContainer").style.transform = "scale(1, 1)";
+global.timerDuration;
+global.maxHearts = 3;
+global.moveModifier = 1;
+global.enemyModifier = 1;
+global.inputSwitched = false;
+global.gravityForce = 2.8;
 
-global.timerDuration = 90;
 global.timerRemaining = global.timerDuration;
 
 global.coinsCollected = 0;
@@ -35,10 +42,20 @@ global.allGameObjects = [];
 global.playerObject = {};
 global.backgroundShift = 0;
 global.backgroundMaxShift = -8000;
-global.gravityForce = 4.8;
 global.pixelToMeter = 500;
 global.leftMoveTrigger;
 global.rightMoveTrigger;
+
+global.resetModifier = function () {
+    global.wrapper = document.getElementById("gameContainer").style.transform = "scale(1, 1)";
+    global.currentModifiers = [];
+    global.modifierGenerated = false;
+
+    global.moveModifier = 1;
+    global.enemyModifier = 1;
+    global.inputSwitched = false;
+    global.gravityForce = 2.8;
+}
 
 global.startTimer = function () {
     global.timerRemaining = global.timerDuration; // Reset the timer to the full duration

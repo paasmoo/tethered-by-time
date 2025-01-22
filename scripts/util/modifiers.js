@@ -1,5 +1,9 @@
 import { global } from "../modules/global.js";
 
+let enemyModifier = 0.35;
+let moveModifier = 0.25;
+let timeModifier = 3;
+
 const levelModifiers = [
     {
         code: "allbad",
@@ -17,7 +21,7 @@ const levelModifiers = [
         description: "TODO",
         counter: "controlswitch",
         apply: function() {
-            // todo
+            global.inputSwitched = !global.inputSwitched;
         },
         weight: 10
     },
@@ -27,7 +31,7 @@ const levelModifiers = [
         description: "TODO",
         counter: "enemiesplus",
         apply: function() {
-            // todo
+            global.enemyModifier -= enemyModifier;
         },
         weight: 10
     },
@@ -37,7 +41,7 @@ const levelModifiers = [
         description: "TODO",
         counter: "enemiesminus",
         apply: function() {
-            // todo
+            global.enemyModifier += enemyModifier;
         },
         weight: 10
     },
@@ -57,9 +61,10 @@ const levelModifiers = [
         description: "TODO",
         counter: "heartplus",
         apply: function() {
-            // todo
+            global.maxHearts--;
+            global.hearts--;
         },
-        weight: 10
+        weight: 6
     },
     {
         code: "heartplus",
@@ -67,9 +72,10 @@ const levelModifiers = [
         description: "TODO",
         counter: "heartminus",
         apply: function() {
-            // todo
+            global.maxHearts++;
+            global.hearts++;
         },
-        weight: 10
+        weight: 6
     },
     {
         code: "mirror",
@@ -77,14 +83,16 @@ const levelModifiers = [
         description: "TODO",
         counter: "mirror",
         apply: function() {
-            // todo
+            let wrapper = document.getElementById("gameContainer");
+            wrapper.style.transform = "scale(-1, 1)";
+            global.inputSwitched = !global.inputSwitched;
         },
         weight: 10
     },
     {
         code: "nothing",
         name: "Meh...",
-        description: "Absolutely nothing happens!",
+        description: "TODO",
         counter: "none",
         apply: function() {},
         weight: 5
@@ -95,7 +103,7 @@ const levelModifiers = [
         description: "TODO",
         counter: "speedplus",
         apply: function() {
-            // todo
+            global.moveModifier -= moveModifier;
         },
         weight: 10
     },
@@ -105,7 +113,7 @@ const levelModifiers = [
         description: "TODO",
         counter: "speedminus",
         apply: function() {
-            // todo
+            global.moveModifier += moveModifier;
         },
         weight: 10
     },
@@ -115,7 +123,7 @@ const levelModifiers = [
         description: "TODO",
         counter: "timeplus",
         apply: function() {
-            // todo
+            global.timerDuration -= Math.floor(global.timerDuration / timeModifier);
         },
         weight: 10
     },
@@ -125,7 +133,7 @@ const levelModifiers = [
         description: "TODO",
         counter: "timeminus",
         apply: function() {
-            // todo
+            global.timerDuration += Math.floor(global.timerDuration / timeModifier);
         },
         weight: 10
     }

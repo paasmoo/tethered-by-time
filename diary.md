@@ -45,6 +45,8 @@ Bug fixes regarding MoveTrigger and background shift.
 Implemented a screen that shows upon perma death (losing all 3 hearts).
 Added a play & info button the title screen.
 Added a lore recap that shows before the first level is shown.
+Added a new modifier generation logic (based on weight) & implemented a screen to show the current level modifiers.
+Added a current level screen.
 
 TO-DO
 ---
