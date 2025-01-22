@@ -1,12 +1,10 @@
 import { global } from "../modules/global.js";
 
 // Util
-import { levelModifiers } from "../util/modifiers.js";
 import { levels } from "../util/levels.js";
 
 // UI objects
-import { CoinUI } from "../gameObjects/ui/coin.js";
-import { Heart } from "../gameObjects/ui/heart.js";
+import * as uiManager from "../util/uiManager.js";
 
 // Game objects
 import { Player } from "../gameObjects/player.js";
@@ -84,25 +82,6 @@ const objectFactory = {
     Finish: (x, y, width, height) => new Star(x, y, width, height)
 }
 
-function createHeartsUI() {
-    let lastX = 20;
-    let remainingHearts = global.hearts;
-    for (let i = 0; i < global.maxHearts; i++) {
-        if (remainingHearts <= 0) {
-            new Heart(lastX, 20, 100, 100, true)
-        } else {
-            new Heart(lastX, 20, 100, 100);
-        }
-
-        lastX = lastX + 70;
-        remainingHearts--;
-    }
-}
-
-function createCoinsUI() {
-    new CoinUI(40, 100, 60, 60);
-}
-
 function generateLevel(level) {
     global.timerDuration = level.time;
 
@@ -124,7 +103,6 @@ function generateLevel(level) {
                 global.coins.push(coin);
             }
         } else {
-
             const createObject = objectFactory[type];
             createObject(...params);
         }
@@ -141,8 +119,7 @@ function resetGame() {
         new Coin(coin.x, coin.y, coin.width, coin.height, coin.active);
     });
 
-    createHeartsUI();
-    createCoinsUI();
+    uiManager.drawHeartsAndCoins();
 }
 
 function setupGame() {
@@ -150,14 +127,11 @@ function setupGame() {
     global.coinsCollected = 0;
 
     global.playerObject = new Player(110, 200, 100, 100);
-
-
     global.leftMoveTrigger = new MoveTrigger(99, 0, 20, 1000, "Left");
     global.rightMoveTrigger = new MoveTrigger(450, 0, 3000, 1000, "Right");
     generateLevel(levels[global.currentLevel - 1], false);
 
-    createHeartsUI();
-    createCoinsUI();
+    uiManager.drawHeartsAndCoins();
 
     global.startTimer();
 }
