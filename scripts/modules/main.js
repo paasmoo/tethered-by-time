@@ -3,7 +3,8 @@ import { global } from "./global.js";
 import { levelModifiers } from "../util/modifiers.js";
 
 import * as menuManager from "../util/menuManager.js";
-import * as levelManager from "../util/levelManager.js";
+import * as levelManager from "../util/levelManager.js"
+import { GameState } from "../util/menus.js";
 
 function drawUI() {
     const ctx = global.ctx;
@@ -106,28 +107,34 @@ function gameLoop(totalRunningTime) {
     global.deltaTime /= 1000;
     global.prevTotalRunningTime = totalRunningTime;
 
-    if (global.gameState == "mainMenu") {
-        global.hearts = 3;
-        menuManager.show("titleScreen");
-    } else if (global.gameState == "lore") {
-        menuManager.show("loreRecap")
-    } else if (global.gameState == "showLevel") {
-        menuManager.show("levelOverview")
-        setTimeout(() => {
-            if (global.gameState === "showLevel") { // Stelle sicher, dass sich der Zustand nicht geändert hat
-                global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
-                global.gameState = "modifier";
-            }
-        }, 500);
-    } else if (global.gameState == "modifier") {
-        if (!global.modifierGenerated) {
-            generateModifiers();
-            global.modifierGenerated = true;
+    if (global.gameState.startsWith("menu")) {
+        switch (global.gameState) {
+            case GameState.LEVEL_OVERVIEW:
+                menuManager.show(global.gameState);
+
+                setTimeout(() => {
+                    if (global.gameState == GameState.LEVEL_OVERVIEW) {
+                        global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
+                        global.gameState = GameState.MODIFIER_OVERVIEW;
+                    }
+                }, 1000);
+                break;
+
+            case GameState.MODIFIER_OVERVIEW:
+                if (!global.modifierGenerated) {
+                    generateModifiers();
+                    global.modifierGenerated = true;
+                }
+
+                menuManager.show(global.gameState);
+                break;
+
+            default:
+                menuManager.show(global.gameState);
+                break;
         }
-        menuManager.show("modifierOverview")
-    } else if (global.gameState == "dead") {
-        menuManager.show("permadeath");
-    } else if (global.gameState == "level1") {
+
+    } else if (global.gameState == GameState.PLAYING) {
         if (global.gameFirstStart) {
             global.background.style.visibility = "visible";
             levelManager.load("new");
@@ -138,7 +145,7 @@ function gameLoop(totalRunningTime) {
         if (global.levelDone == true) {
             global.stopTimer();
             global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
-            global.gameState = "showLevel";
+            global.gameState = "menu_levelOverview";
             global.resetModifier();
             global.currentLevel++;
             global.gameFirstStart = true;
@@ -154,7 +161,8 @@ function gameLoop(totalRunningTime) {
             global.allGameObjects = [];
 
             if (global.hearts == 0) {
-                global.gameState = "dead";
+                global.resetModifier();
+                global.gameState = "menu_permadeath";
                 global.currentLevel = 1;
                 global.gameFirstStart = true;
             } else {

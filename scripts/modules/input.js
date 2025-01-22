@@ -1,5 +1,7 @@
 import { global } from "./global.js";
 
+import { GameState } from "../util/menus.js";
+
 let dActive = false;
 let aActive = false;
 
@@ -38,7 +40,7 @@ function stopMovingLeft() {
 }
 
 function move(event) {
-    if (global.gameState.startsWith("level")) {
+    if (global.gameState == GameState.PLAYING) {
         switch (event.key) {
             case "d":
                 if (global.inputSwitched) {
@@ -62,7 +64,7 @@ function move(event) {
 }
 
 function stop(event) {
-    if (global.gameState.startsWith("level")) {
+    if (global.gameState == GameState.PLAYING) {
         switch (event.key) {
             case "d":
                 if (global.inputSwitched) {
@@ -85,34 +87,32 @@ function stop(event) {
 function menu(event) {
     switch (event.key) {
         case "s":
-            if (global.gameState == "mainMenu") {
+            if (global.gameState == GameState.TITLE_SCREEN) {
                 if (global.buttonSelected != "info") {
                     global.buttonSelected = "info"
                 }
             }
             break;
         case "w":
-            if (global.gameState == "mainMenu") {
+            if (global.gameState == GameState.TITLE_SCREEN) {
                 if (global.buttonSelected != "play") {
                     global.buttonSelected = "play";
                 }
             }
             break;
         case "Enter":
-            if (global.gameState == "mainMenu") {
+            if (global.gameState == GameState.TITLE_SCREEN) {
                 if (global.buttonSelected == "play") {
-                    global.gameState = "lore";
+                    global.resetModifier(true);
+                    global.gameState = GameState.LORE_RECAP;
                 }
-            } else if (global.gameState == "lore") {
+            } else if (global.gameState == GameState.LORE_RECAP) {
                 global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
-                global.gameState = "showLevel";
-            } else if (global.gameState == "modifier") {
-                global.gameState = "level1";
-            } else if (global.gameState == "won") {
-                global.gameState = "mainMenu";
-                global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
-            } else if (global.gameState == "dead") {
-                global.gameState = "mainMenu";
+                global.gameState = GameState.LEVEL_OVERVIEW;
+            } else if (global.gameState == GameState.MODIFIER_OVERVIEW) {
+                global.gameState = GameState.PLAYING;
+            } else if (global.gameState == GameState.GAME_OVER) {
+                global.gameState = GameState.TITLE_SCREEN;
                 global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
             }
     }

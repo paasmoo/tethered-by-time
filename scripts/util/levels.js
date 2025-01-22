@@ -28,7 +28,7 @@ const levels = [
             ["Coin", 2300, 375, 64, 64],  // Coin near the final stretch
 
             // Finish (end of the level)
-            ["Finish", 600, 275, 64, 64] // Finish line
+            ["Finish", 1000, 275, 64, 64] // Finish line
         ]
     },
     {

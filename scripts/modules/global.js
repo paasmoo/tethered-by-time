@@ -1,3 +1,5 @@
+import { GameState } from "../util/menus.js";
+
 const global = {};
 
 // Canvas & Background
@@ -17,7 +19,7 @@ global.platformSize = 80;
 
 global.levelDone = false;
 global.isDead = false;
-global.gameState = "mainMenu";
+global.gameState = GameState.TITLE_SCREEN;
 global.gameFirstStart = true;
 
 global.hearts = global.maxHearts;
@@ -46,7 +48,12 @@ global.pixelToMeter = 500;
 global.leftMoveTrigger;
 global.rightMoveTrigger;
 
-global.resetModifier = function () {
+global.resetModifier = function (fullReset = false) {
+    if(fullReset) {
+        global.hearts = 3;
+        global.maxHearts = 3;
+    }
+
     global.wrapper = document.getElementById("gameContainer").style.transform = "scale(1, 1)";
     global.currentModifiers = [];
     global.modifierGenerated = false;
