@@ -286,8 +286,6 @@ function setupGame() {
 
     createHeartsUI();
     createCoinsUI();
-
-    applyModifiers();
 }
 
 // Game loop
@@ -302,6 +300,9 @@ function gameLoop(totalRunningTime) {
     } else if (global.gameState == "lore") {
         renderLoreScreen();
     } else if (global.gameState == "generateModifier") {
+        if(!global.modifierGenerated) {
+            applyModifiers();
+        }
         renderModifier();
     } else if (global.gameState == "won") {
         global.hearts = 3;
