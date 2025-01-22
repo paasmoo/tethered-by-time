@@ -37,7 +37,7 @@ class Player extends BaseGameObject {
     constructor(x, y, width, height) {
         super(x, y, width, height);
         //this.loadImages(["./images/apple.png"]);
-        this.loadImagesFromSpritesheet("./images/playerCharacter.png", 4, 3);
+        this.loadImagesFromSpritesheet("./images/gameObjects/playerCharacter.png", 4, 3);
 
         this.switchCurrentSprites(8,9);
     }

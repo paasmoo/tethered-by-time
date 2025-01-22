@@ -23,7 +23,7 @@ class PlayButton extends BaseGameObject {
 
     constructor (x, y, width, height) {
         super(x, y, width, height);
-        this.loadImagesFromSpritesheet(["./images/playButton.png"], 2, 1);
+        this.loadImagesFromSpritesheet(["./images/ui/playButton.png"], 2, 1);
         this.animationData.timePerSprite = 0.3;
 
         this.switchCurrentSprites(0, 0);

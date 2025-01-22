@@ -16,7 +16,7 @@ class CoinUI extends BaseGameObject {
 
     constructor (x, y, width, height) {
         super(x, y, width, height);
-        this.loadImagesFromSpritesheet(["./images/coin.png"], 7, 2);
+        this.loadImagesFromSpritesheet(["./images/gameObjects/coin.png"], 7, 2);
         this.switchCurrentSprites(0,0);
     }
 }

@@ -31,7 +31,7 @@ class Coin extends BaseGameObject {
         super(x, y, width, height);
         this.active = isActive;
 
-        this.loadImagesFromSpritesheet(["./images/coin.png"], 7, 2);
+        this.loadImagesFromSpritesheet(["./images/gameObjects/coin.png"], 7, 2);
         this.switchCurrentSprites(0,8, false, true);
         this.animationData.timePerSprite = 0.08;
     }

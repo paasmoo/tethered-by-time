@@ -16,7 +16,7 @@ class Heart extends BaseGameObject {
 
     constructor (x, y, width, height, isDead = false) {
         super(x, y, width, height);
-        this.loadImagesFromSpritesheet(["./images/heart.png"], 3, 2);
+        this.loadImagesFromSpritesheet(["./images/ui/heart.png"], 3, 2);
         this.animationData.timePerSprite = 0.3;
 
         if(isDead) {

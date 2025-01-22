@@ -38,7 +38,7 @@ class Enemy extends BaseGameObject {
             this.speed = speed;
         }
 
-        this.loadImagesFromSpritesheet(["./images/ghost.png"], 9, 2);
+        this.loadImagesFromSpritesheet(["./images/gameObjects/ghost.png"], 9, 2);
         this.switchCurrentSprites(0,8);
     }
 }
