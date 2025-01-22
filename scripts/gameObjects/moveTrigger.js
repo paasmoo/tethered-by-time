@@ -12,32 +12,44 @@ class MoveTrigger extends BaseGameObject {
        //global.ctx.fillRect(this.x, this.y, this.width, this.height);
     }
 
-    reactToCollision = function (collidingObject)   {
-        if (collidingObject.name == "Skeleton") {
+    reactToCollision = function (collidingObject) {
+        if (collidingObject.name === "Skeleton") {
             let shiftBy = collidingObject.xVelocity * global.deltaTime;
-
-            if(this.name == "Right") {
-                if(collidingObject.x < this.x) {
-                    collidingObject.x = this.x;
-                    console.log("done!")
+            let isBlocked = false;
+    
+            // Check if player is colliding with a block
+            for (let i = 0; i < global.allGameObjects.length; i++) {
+                let otherObject = global.allGameObjects[i];
+                if (otherObject !== collidingObject && otherObject.active && otherObject.name === "Block") {
+                    let collisionHappened = global.detectBoxCollision(collidingObject, otherObject);
+                    if (collisionHappened) {
+                        isBlocked = true;
+                        break; // Stop checking further if the player is blocked by any block
+                    }
                 }
             }
-
-            global.backgroundShift += shiftBy * -1;
-            if (global.backgroundShift < global.backgroundMaxShift) {
-                global.backgroundShift = global.backgroundMaxShift;
-                console.log("reached");
-            }
-            else if (global.backgroundShift > 0) {
-                global.backgroundShift = 0;
-            }
-
-            const minLeftBuffer = 100;
-            if(collidingObject.x < minLeftBuffer) {
-                collidingObject.x = minLeftBuffer;
+    
+            // If player is not blocked, move the background
+            if (!isBlocked) {
+                if (this.name === "Right" && collidingObject.x < this.x) {
+                    collidingObject.x = this.x;
+                }
+    
+                global.backgroundShift += shiftBy * -1;
+    
+                // Ensure the background does not exceed the limits
+                if (global.backgroundShift < global.backgroundMaxShift) {
+                    global.backgroundShift = global.backgroundMaxShift;
+                } else if (global.backgroundShift > 0) {
+                    global.backgroundShift = 0;
+                }
+    
+                const minLeftBuffer = 100;
+                if (collidingObject.x < minLeftBuffer) {
+                    collidingObject.x = minLeftBuffer;
+                }
             }
         }
-
     }
 
     constructor(x, y, width, height, name) {

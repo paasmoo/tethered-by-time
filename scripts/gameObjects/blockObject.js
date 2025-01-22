@@ -3,6 +3,7 @@ import { BaseGameObject } from "./baseGameObject.js";
 
 class BlockObject extends BaseGameObject {
     blockGravityForces = true;
+    name = "Block";
 
     reactToCollision = function (collidingObject)   {
         if (collidingObject.name == "Skeleton") {

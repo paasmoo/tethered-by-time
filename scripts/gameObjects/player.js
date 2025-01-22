@@ -29,6 +29,20 @@ class Player extends BaseGameObject {
         }
     }
 
+    reactToCollision = function (collidingObject) {
+    // Add player-specific collision handling logic
+    if (collidingObject.name === "Block") {
+        // Prevent movement if colliding with block
+        if (this.xVelocity > 0) {
+            // Prevent moving right
+            this.x = this.previousX;
+        } else if (this.xVelocity < 0) {
+            // Prevent moving left
+            this.x = this.previousX;
+        }
+    }
+    }
+
     /*draw = function () {
         global.ctx.fillStyle = "#000000";
         global.ctx.fillRect(this.x, this.y, this.width, this.height);

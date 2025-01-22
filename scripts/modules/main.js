@@ -40,7 +40,7 @@ const createBlockColumn = (x, y, height, typeStart, typeMiddle, typeEnd) => {
     }
 
     if (height > 1) {
-        new BlockObject(x, currentY, global.platformSize, global.platformSize, typeEnd);
+        new BlockObject(x, currentY-1, global.platformSize, global.platformSize, typeEnd);
     }
 }
 
@@ -197,8 +197,8 @@ function generateLevel(level) {
 function resetGame() {
     global.playerObject = new Player(100, 200, 100, 100);
     global.playerObject.switchCurrentSprites(8,9, true);
-    global.leftMoveTrigger = new MoveTrigger(100, 100, 20, 2900, 500, "Left");
-    global.rightMoveTrigger = new MoveTrigger(450, 100, 3000, 900, -500, "Right");
+    global.leftMoveTrigger = new MoveTrigger(99, 0, 20, 1000, "Left");
+    global.rightMoveTrigger = new MoveTrigger(450, 0, 3000, 1000, "Right");
     generateLevel(levels[0], true);
     global.coins.forEach(coin => {
         new Coin(coin.x, coin.y, coin.width, coin.height, coin.active);
@@ -213,11 +213,11 @@ function setupGame() {
     global.coins = [];
     global.coinsCollected = 0;
 
-    global.playerObject = new Player(100, 200, 100, 100);
+    global.playerObject = new Player(110, 200, 100, 100);
     
 
-    global.leftMoveTrigger = new MoveTrigger(99, 100, 20, 2900, 500, "Left");
-    global.rightMoveTrigger = new MoveTrigger(450, 100, 3000, 900, -500, "Right");
+    global.leftMoveTrigger = new MoveTrigger(99, 0, 20, 1000, "Left");
+    global.rightMoveTrigger = new MoveTrigger(450, 0, 3000, 1000, "Right");
     generateLevel(levels[0], false);
 
     createHeartsUI();
