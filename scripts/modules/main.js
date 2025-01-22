@@ -16,69 +16,57 @@ import { Enemy } from "../gameObjects/enemy.js";
 import { Star } from "../gameObjects/star.js";
 import { Coin } from "../gameObjects/coin.js";
 
+const createBlockRow = (x, y, length, typeStart, typeMiddle, typeEnd) => {
+    new BlockObject(x, y, global.platformSize, global.platformSize, typeStart);
+    let currentX = x + global.platformSize - 1;
+
+    for (let i = 0; i < length - 2; i++) {
+        new BlockObject(currentX, y, global.platformSize, global.platformSize, typeMiddle);
+        currentX += global.platformSize - 1;
+    }
+
+    if (length > 1) {
+        new BlockObject(currentX, y, global.platformSize, global.platformSize, typeEnd);
+    }
+}
+
+const createBlockColumn = (x, y, height, typeStart, typeMiddle, typeEnd) => {
+    new BlockObject(x, y, global.platformSize, global.platformSize, typeStart);
+    let currentY = y + global.platformSize - 1;
+
+    for (let i = 0; i < height - 2; i++) {
+        new BlockObject(x, currentY, global.platformSize, global.platformSize, typeMiddle);
+        currentY += global.platformSize - 1;
+    }
+
+    if (height > 1) {
+        new BlockObject(x, currentY, global.platformSize, global.platformSize, typeEnd);
+    }
+}
 
 // ObjectFactory for level creation
 const objectFactory = {
     Block: (x, y, height, length) => {
-        if(length == 1) {
-            if(height == 1) {
-                new BlockObject(x, y, global.platformSize, global.platformSize, 3);
-            } else {
-                new BlockObject(x, y, global.platformSize, global.platformSize, 4);
-                let lastY = y + global.platformSize - 1;
-
-            for(let i=0;i<height-2;i++) {
-                new BlockObject(x, lastY, global.platformSize, global.platformSize, 5);
-                lastY = lastY + global.platformSize - 1;
-            }
-
-            new BlockObject(x, lastY, global.platformSize, global.platformSize, 6);
-            }
-        } else if(height == 1 && length != 1) {
-            new BlockObject(x, y, global.platformSize, global.platformSize, 0);
-            let lastX = x + global.platformSize - 1;
-
-            for(let i=0;i<length-2;i++) {
-                new BlockObject(lastX, y, global.platformSize, global.platformSize, 1);
-                lastX = lastX + global.platformSize - 1;
-            }
-
-            new BlockObject(lastX, y, global.platformSize, global.platformSize, 2);
+        if (length === 1) {
+            // Vertical column
+            createBlockColumn(x, y, height, 3, 5, 6);
+        } else if (height === 1) {
+            // Horizontal row
+            createBlockRow(x, y, length, 0, 1, 2);
         } else {
-            new BlockObject(x, y, global.platformSize, global.platformSize, 7);
-            let lastX = x + global.platformSize - 1;
-
-            for(let i=0;i<length-2;i++) {
-                new BlockObject(lastX, y, global.platformSize, global.platformSize, 8);
-                lastX = lastX + global.platformSize - 1;
+            // Full block area
+            // Top row
+            createBlockRow(x, y, length, 7, 8, 9);
+    
+            // Middle rows
+            let currentY = y + global.platformSize - 1;
+            for (let i = 0; i < height - 2; i++) {
+                createBlockRow(x, currentY, length, 10, 11, 12);
+                currentY += global.platformSize - 1;
             }
-
-            new BlockObject(lastX, y, global.platformSize, global.platformSize, 9);
-
-            lastX = x;
-            let lastY = y + global.platformSize - 1;
-
-            for(let i=0;i<height-2;i++) {
-                new BlockObject(lastX, lastY, global.platformSize, global.platformSize, 10);
-                lastX = lastX + global.platformSize - 1;
-                for(let j=0;j<length-2;j++) {
-                    new BlockObject(lastX, lastY, global.platformSize, global.platformSize, 11);
-                    lastX = lastX + global.platformSize - 1;
-                }
-                new BlockObject(lastX, lastY, global.platformSize, global.platformSize, 12);
-                lastY = lastY + global.platformSize - 1;
-            }
-
-            lastX = x;
-            new BlockObject(lastX, lastY, global.platformSize, global.platformSize, 13);
-            lastX = x + global.platformSize - 1;
-
-            for(let i=0;i<length-2;i++) {
-                new BlockObject(lastX, lastY, global.platformSize, global.platformSize, 14);
-                lastX = lastX + global.platformSize - 1;
-            }
-
-            new BlockObject(lastX, lastY, global.platformSize, global.platformSize, 15);
+    
+            // Bottom row
+            createBlockRow(x, currentY, length, 13, 14, 15);
         }
     },
     Enemy: (x, y, width, height, startX, endX, speed) => new Enemy(x, y, width, height, startX, endX, speed),
@@ -209,8 +197,8 @@ function generateLevel(level) {
 function resetGame() {
     global.playerObject = new Player(100, 200, 100, 100);
     global.playerObject.switchCurrentSprites(8,9, true);
-    global.leftMoveTrigger = new MoveTrigger(100, 100, 20, 900, 100, "Left");
-    global.rightMoveTrigger = new MoveTrigger(450, 100, 1000, 900, -100, "Right");
+    global.leftMoveTrigger = new MoveTrigger(100, 100, 20, 2900, 500, "Left");
+    global.rightMoveTrigger = new MoveTrigger(450, 100, 3000, 900, -500, "Right");
     generateLevel(levels[0], true);
     global.coins.forEach(coin => {
         new Coin(coin.x, coin.y, coin.width, coin.height, coin.active);
@@ -228,8 +216,8 @@ function setupGame() {
     global.playerObject = new Player(100, 200, 100, 100);
     
 
-    global.leftMoveTrigger = new MoveTrigger(99, 100, 20, 900, 100, "Left");
-    global.rightMoveTrigger = new MoveTrigger(450, 100, 1000, 900, -100, "Right");
+    global.leftMoveTrigger = new MoveTrigger(99, 100, 20, 2900, 500, "Left");
+    global.rightMoveTrigger = new MoveTrigger(450, 100, 3000, 900, -500, "Right");
     generateLevel(levels[0], false);
 
     createHeartsUI();

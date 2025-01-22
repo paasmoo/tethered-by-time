@@ -38,9 +38,12 @@ Replaced flag with self-drawn star sprites.
 Fixed game states for dying (enemies & time ran out) & winning.
 Refactored a bit of code.
 
+Day 7 (22/01/2025)
+---
+Block objects are now based on a 16-tile spritesheet.
+
 TO-DO
 ---
-Ground should be based on tiles.
 Add 2 new platform tiles.
 Add play button to title screen.
 Add controls & lore recap (skippable) to screen before game.
