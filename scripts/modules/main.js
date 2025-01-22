@@ -104,6 +104,23 @@ function renderWinMenu() {
     ctx.fillText("Press [ ENTER ] to Restart", global.canvas.width / 2, global.canvas.height / 2 + 20)
 }
 
+function renderDeadMenu() {
+    const ctx = global.ctx;
+
+    global.background.style.visibility = "hidden";
+    ctx.fillStyle = "black";
+    ctx.fillRect(0,0, global.canvas.width, global.canvas.height);
+
+    ctx.font = "30px 'VHSGothic', Arial";
+    ctx.fillStyle = "red";
+    ctx.textAlign = "center";
+    ctx.fillText("Aurosa's adventure is over.", global.canvas.width / 2, global.canvas.height / 2);
+
+    ctx.fillStyle = "white";
+    ctx.font = "15px 'VHSGothic', Arial";
+    ctx.fillText("Press [ ENTER ] to go back to the main menu.", global.canvas.width / 2, global.canvas.height / 2 + 40)
+}
+
 function drawUI() {
     const ctx = global.ctx;
 
@@ -240,6 +257,8 @@ function gameLoop(totalRunningTime) {
     } else if (global.gameState == "won") {
         global.hearts = 3;
         renderWinMenu();
+    } else if (global.gameState == "dead") {
+        renderDeadMenu();
     } else if (global.gameState == "level1") {
         if (global.gameFirstStart) {
             global.background.style.visibility = "visible";
@@ -265,7 +284,7 @@ function gameLoop(totalRunningTime) {
 
             if (global.hearts == 0) {
                 global.stopTimer();
-                global.gameState = "mainMenu";
+                global.gameState = "dead";
                 global.gameFirstStart = true;
             } else {
                 global.background.style.visibility = "visible";
