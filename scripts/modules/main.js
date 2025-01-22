@@ -126,12 +126,17 @@ function renderModifier() {
     }
 
     global.currentModifiers.forEach(modifier => {
+        ctx.fillStyle = "gray";
+        ctx.font = "10px 'VHSGothic', Arial";
+        ctx.fillText(`${modifier.chance.toFixed(2)}%`, y, global.canvas.height / 2 - 90);
+
         image = new Image();
-        image.src = `../images/modifier/${modifier.code}.png`;
+        image.src = `../images/modifier/${modifier.mod.code}.png`;
         ctx.drawImage(image, y - image.width / 2, global.canvas.height / 2 - 80);
 
+        ctx.fillStyle = "white";
         ctx.font = "20px 'VHSGothic', Arial";
-        ctx.fillText(modifier.name, y, global.canvas.height / 2 + 120);
+        ctx.fillText(modifier.mod.name, y, global.canvas.height / 2 + 120);
 
         y = global.canvas.width / 2 + 150;
     });
@@ -232,7 +237,7 @@ function drawUI() {
         image = new Image();
         image.src = `../images/modifier/${modifier.code}.png`;
         ctx.drawImage(image, x, 43, 60, 60);
-        x = global.canvas.width / 2 + 30;
+        x = global.canvas.width / 2 + 40;
     });
 }
 
@@ -265,7 +270,6 @@ function writeCoins() {
     ctx.fillText("x " + global.coinsCollected, 145, 135);
 }
 
-
 function getRandomModifiers(numModifiers) {
     const selectedModifiers = [];
     let modifiersCopy = [];
@@ -274,15 +278,15 @@ function getRandomModifiers(numModifiers) {
         const weightedPool = levelModifiers.flatMap(modifier => Array(modifier.weight).fill(modifier));
 
         const randomIndex = Math.floor(Math.random() * weightedPool.length);
-        selectedModifiers.push(weightedPool[randomIndex]);
-        console.log(weightedPool[randomIndex].weight / weightedPool.length * 100);
+        let chancePercent = weightedPool[randomIndex].weight / weightedPool.length * 100;
+        selectedModifiers.push({mod: weightedPool[randomIndex], chance: chancePercent});
     } else {
         while (selectedModifiers.length < numModifiers) {
             modifiersCopy = levelModifiers;
 
             if(selectedModifiers.length > 0) {
                 modifiersCopy.forEach(modifier => {
-                    if(modifier.name === selectedModifiers[0].name) {
+                    if(modifier.name === selectedModifiers[0].mod.name) {
                         modifier.weight = modifier.weight / 2;
                     }
                 });
@@ -295,31 +299,29 @@ function getRandomModifiers(numModifiers) {
             );
 
             if (selectedModifiers.length > 0) {
-                if (selectedModifiers[0].counter !== "none") {
-                    allowedModifiers = allowedModifiers.filter(mod => mod.code !== selectedModifiers[0].counter);
+                if (selectedModifiers[0].mod.counter !== "none") {
+                    allowedModifiers = allowedModifiers.filter(mod => mod.code !== selectedModifiers[0].mod.counter);
                 }
             }
 
             const randomIndex = Math.floor(Math.random() * allowedModifiers.length);
             const modifier = allowedModifiers[randomIndex];
 
-            selectedModifiers.push(modifier);
-            let test = modifier.weight / allowedModifiers.length * 100;
-            console.log(`${modifier.weight} / ${allowedModifiers.length} * 100 = ${test}`)
+            let chancePercent = modifier.weight / allowedModifiers.length * 100;
+            selectedModifiers.push({mod: modifier, chance: chancePercent});
         }
     }
 
     return selectedModifiers;
 }
 
-
 function applyModifiers() {
     const modifierCount = Math.random() < 0.5 ? 1 : 2;
     const selectedModifiers = getRandomModifiers(modifierCount);
 
     selectedModifiers.forEach(modifier => {
-        modifier.apply();
-        global.currentModifiers.push(modifier);
+        modifier.mod.apply();
+        global.currentModifiers.push({mod: modifier.mod, chance: modifier.chance});
     });
 }
 
