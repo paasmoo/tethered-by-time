@@ -40,7 +40,7 @@ const createBlockColumn = (x, y, height, typeStart, typeMiddle, typeEnd) => {
     }
 
     if (height > 1) {
-        new BlockObject(x, currentY-1, global.platformSize, global.platformSize, typeEnd);
+        new BlockObject(x, currentY - 1, global.platformSize, global.platformSize, typeEnd);
     }
 }
 
@@ -57,14 +57,14 @@ const objectFactory = {
             // Full block area
             // Top row
             createBlockRow(x, y, length, 7, 8, 9);
-    
+
             // Middle rows
             let currentY = y + global.platformSize - 1;
             for (let i = 0; i < height - 2; i++) {
                 createBlockRow(x, currentY, length, 10, 11, 12);
                 currentY += global.platformSize - 1;
             }
-    
+
             // Bottom row
             createBlockRow(x, currentY, length, 13, 14, 15);
         }
@@ -90,7 +90,7 @@ function renderMenu() {
     global.background.style.visibility = "hidden";
 
     drawImageCentered("../images/ui/background.png");
-    drawImageCentered("../images/ui/logo.png", 1/3, -100);
+    drawImageCentered("../images/ui/logo.png", 1 / 3, -100);
     const playButtonState = global.buttonSelected === "play" ? "1" : "0";
     drawImageCentered(`../images/ui/buttons/playButton${playButtonState}.png`, 1, 10);
 
@@ -101,6 +101,44 @@ function renderMenu() {
     ctx.fillStyle = "gray";
     ctx.textAlign = "center";
     ctx.fillText("by Pascal Pamer", global.canvas.width / 2, global.canvas.height - 5);
+}
+
+function renderModifier() {
+    const ctx = global.ctx;
+    let image;
+    let y;
+
+    ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
+
+    global.background.style.visibility = "hidden";
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, global.canvas.width, global.canvas.height);
+
+    ctx.font = "30px 'VHSGothic', Arial";
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    ctx.fillText("The artifact has chosen your fate.", global.canvas.width / 2, global.canvas.height / 2 - 150);
+
+    if (global.currentModifiers.length == 1) {
+        y = global.canvas.width / 2;
+    } else {
+        y = global.canvas.width / 2 - 150;
+    }
+
+    global.currentModifiers.forEach(modifier => {
+        image = new Image();
+        image.src = `../images/modifier/${modifier.code}.png`;
+        ctx.drawImage(image, y - image.width / 2, global.canvas.height / 2 - 80);
+
+        ctx.font = "20px 'VHSGothic', Arial";
+        ctx.fillText(modifier.name, y, global.canvas.height / 2 + 120);
+
+        y = global.canvas.width / 2 + 150;
+    });
+
+    ctx.fillStyle = "gray";
+    ctx.font = "15px 'VHSGothic', Arial";
+    ctx.fillText("Press [ ENTER ] to start level 1.", global.canvas.width / 2, global.canvas.height / 2 + 180)
 }
 
 function renderWinMenu() {
@@ -120,7 +158,7 @@ function renderDeadMenu() {
 
     global.background.style.visibility = "hidden";
     ctx.fillStyle = "black";
-    ctx.fillRect(0,0, global.canvas.width, global.canvas.height);
+    ctx.fillRect(0, 0, global.canvas.width, global.canvas.height);
 
     ctx.font = "30px 'VHSGothic', Arial";
     ctx.fillStyle = "red";
@@ -149,7 +187,7 @@ function renderLoreScreen() {
 
     global.background.style.visibility = "hidden";
     ctx.fillStyle = "black";
-    ctx.fillRect(0,0, global.canvas.width, global.canvas.height);
+    ctx.fillRect(0, 0, global.canvas.width, global.canvas.height);
 
     const multilineText = "Haunted by visions of a witch and an ancient artifact, Aurosa journeys to a\nmagical mountain. There, she discovers an artifact that manipulates time,\nbut it's fragile and unstable. As she climbs, the mountain changes, and\nenemies stand in her way. To find the witch, she must navigate the\nmountain's shifting power and unlock its secrets.";
     const lineHeight = 30;
@@ -161,7 +199,7 @@ function renderLoreScreen() {
     ctx.fillStyle = "white";
     ctx.textAlign = "center";
 
-    drawCenteredText(multilineText, centerX, centerY-30, lineHeight);
+    drawCenteredText(multilineText, centerX, centerY - 30, lineHeight);
 
     ctx.fillStyle = "gray";
     ctx.font = "15px 'VHSGothic', Arial";
@@ -170,24 +208,39 @@ function renderLoreScreen() {
 
 function drawUI() {
     const ctx = global.ctx;
+    let image;
+    let x;
 
     ctx.font = "30px 'VHSGothic', Arial";
     ctx.textAlign = "right";
-    
-    if(global.timerRemaining < 60) {
+
+    if (global.timerRemaining < 60) {
         ctx.fillStyle = "red";
     } else {
         ctx.fillStyle = "white";
     }
 
     ctx.fillText(global.timerRemaining, global.canvas.width - 100, 80);
+
+    if (global.currentModifiers.length == 1) {
+        x = global.canvas.width / 2;
+    } else {
+        x = global.canvas.width / 2 - 30;
+    }
+
+    global.currentModifiers.forEach(modifier => {
+        image = new Image();
+        image.src = `../images/modifier/${modifier.code}.png`;
+        ctx.drawImage(image, x, 43, 60, 60);
+        x = global.canvas.width / 2 + 30;
+    });
 }
 
 function createHeartsUI() {
     let lastX = 20;
     let remainingHearts = global.hearts;
-    for(let i=0;i<global.maxHearts;i++) {
-        if(remainingHearts <= 0) {
+    for (let i = 0; i < global.maxHearts; i++) {
+        if (remainingHearts <= 0) {
             new Heart(lastX, 20, 100, 100, true)
         } else {
             new Heart(lastX, 20, 100, 100);
@@ -209,58 +262,92 @@ function writeCoins() {
     ctx.fillStyle = "white";
 
     ctx.textAlign = "right";
-    ctx.fillText("x "+global.coinsCollected, 145, 135);
+    ctx.fillText("x " + global.coinsCollected, 145, 135);
 }
+
 
 function getRandomModifiers(numModifiers) {
     const selectedModifiers = [];
+    let modifiersCopy = [];
 
-    while (selectedModifiers.length < numModifiers) {
-        const randomIndex = Math.floor(Math.random() * levelModifiers.length);
-        const modifier = levelModifiers[randomIndex];
+    if (numModifiers === 1) {
+        const weightedPool = levelModifiers.flatMap(modifier => Array(modifier.weight).fill(modifier));
 
-        if (!selectedModifiers.includes(modifier)) {
+        const randomIndex = Math.floor(Math.random() * weightedPool.length);
+        selectedModifiers.push(weightedPool[randomIndex]);
+        console.log(weightedPool[randomIndex].weight / weightedPool.length * 100);
+    } else {
+        while (selectedModifiers.length < numModifiers) {
+            modifiersCopy = levelModifiers;
+
+            if(selectedModifiers.length > 0) {
+                modifiersCopy.forEach(modifier => {
+                    if(modifier.name === selectedModifiers[0].name) {
+                        modifier.weight = modifier.weight / 2;
+                    }
+                });
+            }
+
+            const weightedPool = modifiersCopy.flatMap(modifier => Array(modifier.weight).fill(modifier));
+
+            let allowedModifiers = weightedPool.filter(mod =>
+                mod.code !== "nothing" && mod.code !== "allbad"
+            );
+
+            if (selectedModifiers.length > 0) {
+                if (selectedModifiers[0].counter !== "none") {
+                    allowedModifiers = allowedModifiers.filter(mod => mod.code !== selectedModifiers[0].counter);
+                }
+            }
+
+            const randomIndex = Math.floor(Math.random() * allowedModifiers.length);
+            const modifier = allowedModifiers[randomIndex];
+
             selectedModifiers.push(modifier);
+            let test = modifier.weight / allowedModifiers.length * 100;
+            console.log(`${modifier.weight} / ${allowedModifiers.length} * 100 = ${test}`)
         }
     }
 
     return selectedModifiers;
 }
 
+
 function applyModifiers() {
-    const selectedModifiers = getRandomModifiers(1);
+    const modifierCount = Math.random() < 0.5 ? 1 : 2;
+    const selectedModifiers = getRandomModifiers(modifierCount);
 
     selectedModifiers.forEach(modifier => {
         modifier.apply();
-        console.log(modifier.name);
+        global.currentModifiers.push(modifier);
     });
 }
 
 function generateLevel(level) {
     level.objects.forEach(obj => {
         const [type, ...params] = obj;
-        
-        if(type === "Coin") {
+
+        if (type === "Coin") {
             const [x, y, width, height] = params;
             const existingCoin = global.coins.find(
                 coin => coin.x === x && coin.y === y && coin.width === width && coin.height === height
             );
 
-            if(!existingCoin) {
+            if (!existingCoin) {
                 const coin = new Coin(x, y, width, height);
                 global.coins.push(coin);
             }
         } else {
-            
+
             const createObject = objectFactory[type];
             createObject(...params);
-        }  
+        }
     });
 }
 
 function resetGame() {
     global.playerObject = new Player(100, 200, 100, 100);
-    global.playerObject.switchCurrentSprites(8,9, true);
+    global.playerObject.switchCurrentSprites(8, 9, true);
     global.leftMoveTrigger = new MoveTrigger(99, 0, 20, 1000, "Left");
     global.rightMoveTrigger = new MoveTrigger(450, 0, 3000, 1000, "Right");
     generateLevel(levels[0], true);
@@ -278,7 +365,7 @@ function setupGame() {
     global.coinsCollected = 0;
 
     global.playerObject = new Player(110, 200, 100, 100);
-    
+
 
     global.leftMoveTrigger = new MoveTrigger(99, 0, 20, 1000, "Left");
     global.rightMoveTrigger = new MoveTrigger(450, 0, 3000, 1000, "Right");
@@ -299,10 +386,12 @@ function gameLoop(totalRunningTime) {
         renderMenu();
     } else if (global.gameState == "lore") {
         renderLoreScreen();
-    } else if (global.gameState == "generateModifier") {
-        if(!global.modifierGenerated) {
+    } else if (global.gameState == "modifier") {
+        if (!global.modifierGenerated) {
             applyModifiers();
+            global.modifierGenerated = true;
         }
+
         renderModifier();
     } else if (global.gameState == "won") {
         global.hearts = 3;
@@ -342,8 +431,8 @@ function gameLoop(totalRunningTime) {
                 global.startTimer();
             }
         } else {
-            global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height); // Completely clear the canvas for the next graphical output 
 
+            global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height); // Completely clear the canvas for the next graphical output 
             for (var i = 0; i < global.allGameObjects.length; i++) { //loop in the (game)loop -> the gameloop is continous anyways.. and on every cylce we do now loop through all objects to execute several operations (functions) on each of them: update, draw, collision detection, ...
                 if (global.allGameObjects[i].active == true) {
                     global.allGameObjects[i].storePositionOfPreviousFrame();

@@ -8,6 +8,8 @@ global.ctx = canvas.getContext("2d");
 global.background = document.getElementById("background");
 
 global.buttonSelected = "play";
+global.modifierGenerated = false;
+global.currentModifiers = [];
 
 global.platformSize = 80;
 
@@ -21,7 +23,7 @@ global.hearts = global.maxHearts;
 
 global.modifier = 1;
 
-global.timerDuration = 10;
+global.timerDuration = 90;
 global.timerRemaining = global.timerDuration;
 
 global.coinsCollected = 0;

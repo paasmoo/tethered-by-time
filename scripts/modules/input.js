@@ -5,7 +5,7 @@ let aActive = false;
 
 function move(event) {
 
-    if (global.gameState != "mainMenu" && global.gameState != "won" && global.gameState != "dead") {
+    if (global.gameState.startsWith("level")) {
         switch (event.key) {
             case "d":
                 if (!dActive) {
@@ -31,7 +31,7 @@ function move(event) {
 }
 
 function stop(event) {
-    if (global.gameState != "mainMenu" && global.gameState != "won" && global.gameState != "dead") {
+    if (global.gameState.startsWith("level")) {
         switch (event.key) {
             case "d":
                 dActive = false;
@@ -73,6 +73,9 @@ function menu(event) {
                     global.gameState = "lore";
                 }
             } else if (global.gameState == "lore") {
+                global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height); 
+                global.gameState = "modifier";
+            } else if (global.gameState == "modifier") {
                 global.gameState = "level1";
             } else if (global.gameState == "won") {
                 global.gameState = "mainMenu";
