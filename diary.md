@@ -50,10 +50,13 @@ Added a current level screen.
 Added a lost heart screen.
 Refactored a large bit of code.
 
+Day 8 (23/01/2025)
+---
+Added new enemy type, spikes.
+Added 2 new platform tiles.
+
 TO-DO
 ---
-Add 2 new platform tiles.
-Add 1 new enemy type: spikes.
 Create 2 normal levels.
 Create 1 boss level. (+ win condition & win screen)
 Add info screen with controls & modifier info.

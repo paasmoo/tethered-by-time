@@ -3,44 +3,69 @@ import { global } from "../modules/global.js";
 
 class Enemy extends BaseGameObject {
     blockGravityForces = false;
-    startX;
-    endX;
+    start;
+    end;
     direction = 1;
     speed = 1;
     type;
+    facing;
 
-    update = function () {
-        if(this.x > this.endX) {
-            this.x = this.endX;
-            this.direction = -1;
-            this.switchCurrentSprites(9,17);
-        } else if(this.x < this.startX) {
-            this.x = this.startX;
-            this.direction = 1;
-            this.switchCurrentSprites(0,8);
+    changeSpriteDirection = function(direction) {
+        if(direction === "left") {
+            this.switchCurrentSprites(9, 17);
+        } else {
+            this.switchCurrentSprites(0, 8);
         }
-        
-        this.x += this.direction * this.speed;
     }
 
-    reactToCollision = function (collidingObject)   {
+    update = function () {
+        if (this.type == 0) {
+            if (this.x > this.end) {
+                this.x = this.end;
+                this.direction = -1;
+                this.changeSpriteDirection("left");
+            } else if (this.x < this.start) {
+                this.x = this.start;
+                this.direction = 1;
+                this.changeSpriteDirection("right");
+            }
+
+            this.x += this.direction * this.speed;
+        } else {
+            if (this.y > this.end) {
+                this.y = this.end;
+                this.direction = -1;
+                this.changeSpriteDirection(this.facing);
+            } else if (this.y < this.start) {
+                this.y = this.start;
+                this.direction = 1;
+                this.changeSpriteDirection(this.facing);
+            }
+
+            this.y += this.direction * this.speed;
+        }
+    }
+
+    reactToCollision = function (collidingObject) {
         if (collidingObject.name == "Skeleton") {
             global.isDead = true;
         }
     }
 
-    constructor (x, y, width, height, startX, endX, speed) {
+    constructor(x, y, width, height, start, end, speed, type, facing) {
         super(x, y, width, height);
-        this.startX = startX;
-        this.endX = endX;
+        this.start = start;
+        this.end = end;
+        this.type = type;
+        this.facing = facing;
 
-        if(speed) {
+        if (speed) {
             this.speed = speed;
         }
 
         this.loadImagesFromSpritesheet(["./images/gameObjects/ghost.png"], 9, 2);
-        this.switchCurrentSprites(0,8);
+        this.changeSpriteDirection(facing);
     }
 }
 
-export {Enemy};
+export { Enemy };

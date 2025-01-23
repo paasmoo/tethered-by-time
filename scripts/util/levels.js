@@ -5,27 +5,18 @@ const levels = [
         nameColor: "green",
         time: 130,
         objects: [
-            // Platform blocks
-            ["Block", 100, 450, 1, 5],   // Starting platform
-            ["Block", 600, 400, 1, 4],   // Midway platform
-            ["Block", 1200, 350, 1, 6],  // Elevated platform
-            ["Block", 1800, 300, 1, 5],  // High platform near the finish
-            ["Block", 2400, 400, 1, 5],  // Final stretch platform
+            //        x    y    h  l  type
+            ["Block", 100, 450, 1, 3, "grass"],
+            ["Block", 450, 380, 2, 2, "grass"],
+            ["Block", 750, 450, 2, 2, "stone"],
 
-            // Vertical blocks
-            ["Block", 500, 400, 2, 1],   // Decorative vertical block
-            ["Block", 1100, 350, 3, 1],  // Vertical challenge block
-            ["Block", 2000, 300, 3, 1],  // Guarding the final stretch
+            //        x    y    size    st   end  a  t  dir
+            ["Enemy",  630, 100, 76, 76,  100,  500, 1, 1, "left"],   // Patrolling enemy near 2nd platform
+            ["Enemy", 1300, 325, 76, 76, 1200, 1600, 1, 0, "left"],  // Enemy on the large platform
+            ["Enemy", 1900, 275, 76, 76, 1800, 2200, 1, 0, "left"],  // Higher enemy guarding the finish
 
-            // Enemies (moving on platforms)
-            ["Enemy", 650, 375, 76, 76, 600, 1000, 1],   // Patrolling enemy near 2nd platform
-            ["Enemy", 1300, 325, 76, 76, 1200, 1600, 1],  // Enemy on the large platform
-            ["Enemy", 1900, 275, 76, 76, 1800, 2200, 1],  // Higher enemy guarding the finish
 
-            // Coins (strategically placed)
-            ["Coin", 750, 350, 64, 64],   // Coin near 2nd platform
-            ["Coin", 1400, 300, 64, 64],  // Coin above the large platform
-            ["Coin", 2300, 375, 64, 64],  // Coin near the final stretch
+            ["Coin", 795, 380, 64, 64],   // Coin near 2nd platform
 
             // Finish (end of the level)
             ["Finish", 1000, 275, 64, 64] // Finish line

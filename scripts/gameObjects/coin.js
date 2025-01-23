@@ -8,8 +8,6 @@ class Coin extends BaseGameObject {
     reactToCollision = function (collidingObject)   {
         if(collidingObject.name === "Skeleton") {
             global.coinsCollected++;
-            this.switchCurrentSprites(9,10, false, true);
-
             this.active = false;
         }
     }
