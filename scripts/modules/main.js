@@ -21,7 +21,7 @@ function gameLoop(totalRunningTime) {
                 if (global.gameState == GameState.LEVEL_OVERVIEW) {
                     global.gameState = GameState.MODIFIER_OVERVIEW;
                 }
-            }, 1000);
+            }, 3000);
         } else if (global.gameState == GameState.MODIFIER_OVERVIEW && !global.modifierGenerated) {
             modifierGenerator.generate();
             global.modifierGenerated = true;
@@ -34,6 +34,21 @@ function gameLoop(totalRunningTime) {
             global.background.style.visibility = "visible";
             levelManager.load("new");
             global.gameFirstStart = false;
+        }
+
+        if (global.levelDone) {
+            global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
+
+            global.stopTimer();
+            global.backgroundShift = 0;
+            global.isDead = false;
+            global.allGameObjects = [];
+            global.currentLevel++;
+            global.levelDone = false;
+            global.gameFirstStart = true;
+
+            global.reset();
+            global.gameState = GameState.LEVEL_OVERVIEW;
         }
 
         if (global.isDead) {

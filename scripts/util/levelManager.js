@@ -123,9 +123,6 @@ function resetGame() {
 }
 
 function setupGame() {
-    global.coins = [];
-    global.coinsCollected = 0;
-
     global.playerObject = new Player(110, 200, 100, 100);
     global.leftMoveTrigger = new MoveTrigger(99, 0, 20, 1000, "Left");
     global.rightMoveTrigger = new MoveTrigger(450, 0, 3000, 1000, "Right");

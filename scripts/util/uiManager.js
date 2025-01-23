@@ -43,7 +43,6 @@ function drawHearts() {
     let remainingHearts = global.hearts;
 
     for (let i = 0; i < global.maxHearts; i++) {
-        console.log(remainingHearts);
         if (remainingHearts <= 0) {
             new Heart(lastX, 20, 100, 100, true)
         } else {
