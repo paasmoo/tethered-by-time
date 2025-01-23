@@ -9,9 +9,9 @@ class Player extends BaseGameObject {
 
     getBoxBounds = function () {
         let bounds = {
-            left: this.x + 18,
+            left: this.x + 25,
             right: this.x + this.width - 22,
-            top: this.y + 14,
+            top: this.y + 18,
             bottom: this.y + this.height - 3
         }
         return bounds;

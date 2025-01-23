@@ -142,12 +142,12 @@ function resetGame() {
     generateLevel(levels[global.currentLevel - 1], true);
 
     if(global.currentLevel != 3) {
-        global.playerObject = new Player(110, 400, 100, 100);
+        global.playerObject = new Player(120, 200, 100, 100);
         global.rightMoveTrigger = new MoveTrigger(450, -500, 3000, 1000, "Right");
     } else {
         global.playerObject = new Player(global.canvas.width / 2 - 50, 400, 100, 100);
     }
-    global.leftMoveTrigger = new MoveTrigger(99, 0, 20, 1000, "Left");
+    global.leftMoveTrigger = new MoveTrigger(100, 0, 20, 1000, "Left");
 
     global.coins.forEach(coin => {
         new Coin(coin.x, coin.y, coin.width, coin.height, coin.active);
@@ -160,7 +160,7 @@ function setupGame() {
     generateLevel(levels[global.currentLevel - 1], false);
 
     if(global.currentLevel != 3) {
-        global.playerObject = new Player(110, 400, 100, 100);
+        global.playerObject = new Player(120, 100, 100, 100);
         global.rightMoveTrigger = new MoveTrigger(450, -500, 3000, 1000, "Right");
     } else {
         global.playerObject = new Player(global.canvas.width / 2 - 50, 400, 100, 100);
