@@ -11,7 +11,10 @@ const levelModifiers = [
         description: "TODO",
         counter: "none",
         apply: function() {
-            // todo
+            global.timerDuration -= Math.floor(global.timerDuration / timeModifier);
+            global.inputSwitched = !global.inputSwitched;
+            global.enemyModifier += enemyModifier;
+            global.moveModifier -= moveModifier;
         },
         weight: 5
     },
