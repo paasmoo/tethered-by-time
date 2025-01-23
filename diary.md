@@ -54,4 +54,6 @@ TO-DO
 ---
 Add 2 new platform tiles.
 Add 1 new enemy type: spikes.
-Create 3 levels.
+Create 2 normal levels.
+Create 1 boss level. (+ win condition & win screen)
+Add info screen with controls & modifier info.

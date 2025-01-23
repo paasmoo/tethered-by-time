@@ -82,11 +82,11 @@ global.startTimer = function () {
             clearInterval(global.timerInterval);
             global.timerInterval = null; // Timer has ended
 
-            global.resetCanvas();
+            global.reset();
             global.allGameObjects = [];
             global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
             global.isDead = false;
-            global.gameState = "dead";
+            global.gameState = GameState.GAME_OVER;
             global.gameFirstStart = true;
         }
     }, 1000);
