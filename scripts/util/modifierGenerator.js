@@ -10,10 +10,28 @@ function generate() {
         selectedModifiers.push(generateSingleModifier());
     } else {
         while (selectedModifiers.length < numModifiers) {
+            let modifier;
+            let generateAgain = true;
+
             modifiersCopy = getModifiersCopy(selectedModifiers);
             const weightedPool = createWeightedPool(modifiersCopy);
             const allowedModifiers = filterAllowedModifiers(weightedPool, selectedModifiers);
-            const modifier = pickRandomModifier(allowedModifiers);
+            
+            while(generateAgain) {
+                modifier = pickRandomModifier(allowedModifiers);
+
+                if(modifier.code == "heartminus") {
+                    let heartsPredicted = global.hearts - 1;
+
+                    if(heartsPredicted <= 0) {
+                        generateAgain = true;
+                    } else {
+                        generateAgain = false;
+                    }
+                } else {
+                    generateAgain = false;
+                }
+            }
 
             selectedModifiers.push({
                 mod: modifier,
@@ -26,11 +44,28 @@ function generate() {
 }
 
 function generateSingleModifier() {
+    let generateAgain = true;
     const weightedPool = levelModifiers.flatMap(modifier => Array(modifier.weight).fill(modifier));
-    const randomIndex = Math.floor(Math.random() * weightedPool.length);
-    const selectedModifier = weightedPool[randomIndex];
-    const chancePercent = calculateChance(selectedModifier, weightedPool);
+    let selectedModifier;
 
+    while (generateAgain) {
+        const randomIndex = Math.floor(Math.random() * weightedPool.length);
+        selectedModifier = weightedPool[randomIndex];
+
+        if (selectedModifier.code == "heartminus") {
+            let heartsPredicted = global.hearts - 1;
+
+            if (heartsPredicted <= 0) {
+                generateAgain = true;
+            } else {
+                generateAgain = false;
+            }
+        } else {
+            generateAgain = false
+        }
+    }
+
+    const chancePercent = calculateChance(selectedModifier, weightedPool);
     return { mod: selectedModifier, chance: chancePercent };
 }
 

@@ -47,11 +47,11 @@ Added a play & info button the title screen.
 Added a lore recap that shows before the first level is shown.
 Added a new modifier generation logic (based on weight) & implemented a screen to show the current level modifiers.
 Added a current level screen.
+Added a lost heart screen.
+Refactored a large bit of code.
 
 TO-DO
 ---
 Add 2 new platform tiles.
 Add 1 new enemy type: spikes.
-Add controls to menu.
 Create 3 levels.
-Make a lost heart screen?

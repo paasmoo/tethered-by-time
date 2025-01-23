@@ -21,6 +21,9 @@ function show(name) {
         case GameState.MODIFIER_OVERVIEW:
             renderModifierOverview();
             break;
+            case GameState.HEART_LOST:
+                renderHeartLost();
+                break;
         case GameState.GAME_OVER:
             renderGameOver();
             break;
@@ -151,13 +154,23 @@ function renderModifierOverview() {
 }
 
 function renderGameOver() {
-    global.background.style.visibility = "hidden";
+    drawBlackscreen();
 
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, global.canvas.width, global.canvas.height);
 
     drawText("Aurosa's adventure is over.", global.canvas.width / 2, global.canvas.height / 2, 30, "red");
     drawText("Press [ ENTER ] to go back to the main menu.", global.canvas.width / 2, global.canvas.height / 2 + 40, 15, "white");
+}
+
+function renderHeartLost() {
+    drawBlackscreen();
+
+    if(global.hearts > 1) {
+        drawText(`${global.hearts} hearts remaining.`, global.canvas.width / 2, global.canvas.height / 2, 30, "red");
+    } else {
+        drawText(`${global.hearts} heart remaining.`, global.canvas.width / 2, global.canvas.height / 2, 30, "red");
+    }
 }
 
 

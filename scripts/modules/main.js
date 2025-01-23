@@ -26,6 +26,16 @@ function gameLoop(totalRunningTime) {
             modifierGenerator.generate();
             global.modifierGenerated = true;
             menuManager.show(global.gameState);
+        } else if (global.gameState == GameState.HEART_LOST) {
+            menuManager.show(global.gameState);
+            setTimeout(() => {
+                if (global.gameState == GameState.HEART_LOST) {
+                    global.gameState = GameState.PLAYING;
+                    global.background.style.visibility = "visible";
+                    levelManager.load("old");
+                    global.startTimer();
+                }
+            }, 1000);
         } else {
             menuManager.show(global.gameState);
         }
@@ -64,9 +74,7 @@ function gameLoop(totalRunningTime) {
                 global.reset(true); // Full reset on permadeath
                 global.gameState = GameState.GAME_OVER;
             } else {
-                global.background.style.visibility = "visible";
-                levelManager.load("old");
-                global.startTimer();
+                global.gameState = GameState.HEART_LOST;
             }
         } else {
             global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
