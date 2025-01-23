@@ -55,9 +55,9 @@ Day 8 (23/01/2025)
 Added new enemy type, spikes.
 Added 2 new platform tiles.
 Enemies can now also go up and down.
+Created 2 normal levels that are easy to beat.
+Created 1 boss level with win screen at the end.
 
 TO-DO
 ---
-Create 2 normal levels.
-Create 1 boss level. (+ win condition & win screen)
 Add info screen with controls & modifier info.

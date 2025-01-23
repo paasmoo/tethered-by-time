@@ -8,40 +8,36 @@ const levels = [
             // Start
             ["Block", -30, 450, 1, 4, "grass"],
             ["Block", 370, 380, 2, 2, "grass"],
-            ["Block", 630, 420, 2, 2, "grass"],
-            ["Coin", 675, 350, 64, 64],
             ["Enemy",  530, 100, 76, 76,  100,  500, 0.85, 1, "left"],
 
-            // Narrow stones
-            ["Block", 900, 420, 3, 1, "stone"],
-            ["Block", 1060, 420, 3, 1, "stone"],
-            ["Block", 1220, 420, 3, 1, "stone"],
-            ["Block", 1380, 420, 3, 1, "stone"],
-            ["Enemy", 900, 225, 76, 76, 900, 1380, 1, 0, "left"],  // Enemy on the large platform
+            ["Enemy", 680, 305, 76, 76, 680, 930, 0.9, 0, "right"],
+            ["Block", 630, 380, 2, 2, "grass"],
+            ["Block", 830, 380, 2, 2, "grass"],
 
-            // Stairs to the finish
-            ["Block", 1540, 370, 3, 2, "grass"],
-            ["Block", 1800, 350, 3, 2, "grass"],
-            ["Block", 2060, 310, 3, 2, "grass"],
-            ["Block", 2310, 250, 4, 2, "grass"],
-            ["Block", 2555, 175, 2, 2, "grass"],
-            ["Block", 2555, 450, 2, 2, "grass"],
-            ["Coin", 2595, 380, 64, 64],
-            ["Finish", 2700, 500, 64, 64], // Hidden end (you have to fall)
+            ["Spike", 1050, 380, 1, 0],
+            ["Block", 1030, 420, 2, 2, "stone"],
 
-            // Finish
-            ["Block", 2800, 175, 6, 4, "grass"],
-            ["Finish", 3000, 105, 64, 64],
+            ["Spike", 1220, 430, 1, 0],
+            ["Block", 1200, 470, 2, 2, "stone"],
 
-            // stone wall for bounds
-            ["Block", 3300, -300, 12, 5, "stone"]
+            ["Spike", 1700, 360, 2, 0],
+            ["Block", 1500, 400, 2, 4, "wood"],
+
+            ["Block", 1900, 370, 2, 4, "wood"],
+
+            ["Coin", 2275, 400, 64, 64],
+            ["Spike", 2270, 440, 2, 0],
+            ["Block", 2270, 480, 2, 1, "wood"],
+
+            ["Block", 2370, 380, 5, 1, "grass"],
+            ["Finish", 2370, 325, 64, 64],
         ]
     },
     {
         number: 2,
         name: "Twilight Vale",
         nameColor: "yellow",
-        time: 160,
+        time: 90,
         objects: [
             // Start
             ["Block", -30, 450, 1, 4, "grassDark"],
@@ -51,10 +47,10 @@ const levels = [
             ["Enemy",  530, 100, 76, 76,  100,  500, 0.85, 1, "left"],
 
             // Narrow stones
-            ["Block", 900, 420, 3, 1, "stone"],
-            ["Block", 1060, 420, 3, 1, "stone"],
-            ["Block", 1220, 420, 3, 1, "stone"],
-            ["Block", 1380, 420, 3, 1, "stone"],
+            ["Block", 900, 420, 3, 1, "grassDark"],
+            ["Block", 1060, 420, 3, 1, "grassDark"],
+            ["Block", 1220, 420, 3, 1, "grassDark"],
+            ["Block", 1380, 420, 3, 1, "grassDark"],
             ["Enemy", 900, 225, 76, 76, 900, 1380, 1, 0, "left"],  // Enemy on the large platform
 
             // Stairs to the finish
@@ -120,16 +116,12 @@ const levels = [
 
             // last wave (mixup)
             ["BossEnemy", 1050, 380, 64, 64, -50, 2, "left", 22],
-            ["BossEnemy", 1050, 380, 64, 64, -50, 2, "left", 21],
             ["BossEnemy", 1050, 380, 64, 64, -50, 2, "left", 20],
             ["BossEnemy", -50, 380, 64, 64, 1050, 2, "right", 19],
-            ["BossEnemy", -50, 380, 64, 64, 1050, 2, "right", 18],
             ["BossEnemy", -50, 380, 64, 64, 1050, 2, "right", 17],
             
             ["BossEnemy", 1050, 380, 64, 64, -50, 2, "left", 16],
             ["BossEnemy", -50, 380, 64, 64, 1050, 2, "right", 15],
-            ["BossEnemy", 1050, 380, 64, 64, -50, 2, "left", 14],
-            ["BossEnemy", -50, 380, 64, 64, 1050, 2, "right", 13],
 
             ["BossEnemy", 1050, 380, 64, 64, -50, 2, "left", 12],
             ["BossEnemy", 1090, 380, 64, 64, -50, 2, "left", 11],
@@ -137,11 +129,8 @@ const levels = [
 
             ["BossEnemy", -50, 380, 64, 64, 1050, 2, "right", 9],
             ["BossEnemy", 1050, 380, 64, 64, -50, 2, "left", 8],
-            ["BossEnemy", -50, 380, 64, 64, 1050, 2, "right",7],
-            ["BossEnemy", 1050, 380, 64, 64, -50, 2, "left", 6],
 
             ["BossEnemy", -50, 380, 64, 64, 1050, 2, "right", 5],
-            ["BossEnemy", -90, 380, 64, 64, 1050, 2, "right", 4],
             ["BossEnemy", -130, 380, 64, 64, 1050, 2, "right", 3],
             ["BossEnemy", -170, 380, 64, 64, 1050, 2, "right", 2]
         ]
