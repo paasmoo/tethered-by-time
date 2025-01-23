@@ -14,6 +14,7 @@ import { Enemy } from "../gameObjects/enemy.js";
 import { Star } from "../gameObjects/star.js";
 import { Coin } from "../gameObjects/coin.js";
 import { Spike } from "../gameObjects/spike.js";
+import { BossEnemy } from "../gameObjects/bossEnemy.js";
 
 function load(name) {
     switch (name) {
@@ -98,10 +99,19 @@ const objectFactory = {
         createSpikeRow(x, y, length, position);
     },
     Enemy: (x, y, width, height, startX, endX, speed, type, facing) => new Enemy(x, y, width, height, startX, endX, speed * global.enemyModifier, type, facing),
-    Finish: (x, y, width, height) => new Star(x, y, width, height)
+    Finish: (x, y, width, height) => new Star(x, y, width, height),
+    BossEnemy: (x, y, width, height, end, speed, facing, startTime) => new BossEnemy(x, y, width, height, end, speed, facing, startTime)
 }
 
 function generateLevel(level) {
+    if(global.currentLevel == 1) {
+        background.style.setProperty('background-image', "url('../images/background.png')", 'important');
+    } else if (global.currentLevel == 2) {
+        background.style.setProperty('background-image', "url('../images/backgroundDark.png')", 'important');
+    } else if (global.currentLevel == 3) {
+        background.style.setProperty('background-image', "url('../images/backgroundBoss.png')", 'important')
+    }
+
     global.timerDuration = level.time;
 
     if (global.gameFirstStart) {
@@ -129,11 +139,16 @@ function generateLevel(level) {
 }
 
 function resetGame() {
-    global.playerObject = new Player(100, 400, 100, 100);
-    global.playerObject.switchCurrentSprites(8, 9, true);
-    global.leftMoveTrigger = new MoveTrigger(99, 0, 20, 1000, "Left");
-    global.rightMoveTrigger = new MoveTrigger(450, 0, 3000, 1000, "Right");
     generateLevel(levels[global.currentLevel - 1], true);
+
+    if(global.currentLevel != 3) {
+        global.playerObject = new Player(110, 400, 100, 100);
+        global.rightMoveTrigger = new MoveTrigger(450, -500, 3000, 1000, "Right");
+    } else {
+        global.playerObject = new Player(global.canvas.width / 2 - 50, 400, 100, 100);
+    }
+    global.leftMoveTrigger = new MoveTrigger(99, 0, 20, 1000, "Left");
+
     global.coins.forEach(coin => {
         new Coin(coin.x, coin.y, coin.width, coin.height, coin.active);
     });
@@ -142,10 +157,16 @@ function resetGame() {
 }
 
 function setupGame() {
-    global.playerObject = new Player(110, 400, 100, 100);
-    global.leftMoveTrigger = new MoveTrigger(99, 0, 20, 1000, "Left");
-    global.rightMoveTrigger = new MoveTrigger(450, 0, 3000, 1000, "Right");
     generateLevel(levels[global.currentLevel - 1], false);
+
+    if(global.currentLevel != 3) {
+        global.playerObject = new Player(110, 400, 100, 100);
+        global.rightMoveTrigger = new MoveTrigger(450, -500, 3000, 1000, "Right");
+    } else {
+        global.playerObject = new Player(global.canvas.width / 2 - 50, 400, 100, 100);
+    }
+    
+    global.leftMoveTrigger = new MoveTrigger(99, 0, 20, 1000, "Left");
 
     uiManager.drawHeartsAndCoins();
 

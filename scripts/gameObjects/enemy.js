@@ -31,7 +31,7 @@ class Enemy extends BaseGameObject {
             }
 
             this.x += this.direction * this.speed;
-        } else {
+        } else if(this.type == 1) {
             if (this.y > this.end) {
                 this.y = this.end;
                 this.direction = -1;
@@ -48,7 +48,9 @@ class Enemy extends BaseGameObject {
 
     reactToCollision = function (collidingObject) {
         if (collidingObject.name == "Skeleton") {
-            global.isDead = true;
+            if(this.type != 2) {
+                global.isDead = true;
+            }
         }
     }
 

@@ -54,6 +54,7 @@ Day 8 (23/01/2025)
 ---
 Added new enemy type, spikes.
 Added 2 new platform tiles.
+Enemies can now also go up and down.
 
 TO-DO
 ---

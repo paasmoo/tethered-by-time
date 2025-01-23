@@ -7,9 +7,19 @@ import { CoinUI } from "../gameObjects/ui/coin.js";
 const ctx = global.ctx;
 
 function draw() {
+    if(global.currentLevel == 3) {
+        drawInfo();
+    }
+    
     drawTimer();
     drawModifiers();
     drawCoinsCollected();
+}
+
+function drawInfo() {
+    if(global.timerRemaining > 70) {
+        drawText("Avoid the ghosts!", global.canvas.width / 2 + 50, global.canvas.height / 2, 30, "white");
+    }
 }
 
 function drawHeartsAndCoins() {

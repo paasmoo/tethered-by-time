@@ -111,7 +111,7 @@ function menu(event) {
                 global.gameState = GameState.LEVEL_OVERVIEW;
             } else if (global.gameState == GameState.MODIFIER_OVERVIEW) {
                 global.gameState = GameState.PLAYING;
-            } else if (global.gameState == GameState.GAME_OVER) {
+            } else if (global.gameState == GameState.GAME_OVER || global.gameState == GameState.WON) {
                 global.gameState = GameState.TITLE_SCREEN;
                 global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
             }

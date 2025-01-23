@@ -14,6 +14,12 @@ function gameLoop(totalRunningTime) {
     global.deltaTime = (totalRunningTime - global.prevTotalRunningTime) / 1000;
     global.prevTotalRunningTime = totalRunningTime;
 
+    if(global.currentLevel == 3) {
+        if(global.timerRemaining == 1) {
+            global.won = true;
+        }
+    }
+
     if (global.gameState.startsWith("menu")) {
         if (global.gameState == GameState.LEVEL_OVERVIEW) {
             menuManager.show(global.gameState);
@@ -44,6 +50,20 @@ function gameLoop(totalRunningTime) {
             global.background.style.visibility = "visible";
             levelManager.load("new");
             global.gameFirstStart = false;
+        }
+
+        if(global.won) {
+            global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
+
+            global.stopTimer();
+            global.backgroundShift = 0;
+            global.isDead = false;
+            global.allGameObjects = [];
+            global.levelDone = false;
+            global.gameFirstStart = true;
+
+            global.reset();
+            global.gameState = GameState.WON;
         }
 
         if (global.levelDone) {

@@ -5,21 +5,36 @@ const levels = [
         nameColor: "green",
         time: 130,
         objects: [
-            //        x    y    h  l  type
-            ["Block", 100, 450, 1, 3, "grass"],
-            ["Block", 450, 380, 2, 2, "grass"],
-            ["Block", 750, 450, 2, 2, "stone"],
+            // Start
+            ["Block", -30, 450, 1, 4, "grass"],
+            ["Block", 370, 380, 2, 2, "grass"],
+            ["Block", 630, 420, 2, 2, "grass"],
+            ["Coin", 675, 350, 64, 64],
+            ["Enemy",  530, 100, 76, 76,  100,  500, 0.85, 1, "left"],
 
-            //        x    y    size    st   end  a  t  dir
-            ["Enemy",  630, 100, 76, 76,  100,  500, 1, 1, "left"],   // Patrolling enemy near 2nd platform
-            ["Enemy", 1300, 325, 76, 76, 1200, 1600, 1, 0, "left"],  // Enemy on the large platform
-            ["Enemy", 1900, 275, 76, 76, 1800, 2200, 1, 0, "left"],  // Higher enemy guarding the finish
+            // Narrow stones
+            ["Block", 900, 420, 3, 1, "stone"],
+            ["Block", 1060, 420, 3, 1, "stone"],
+            ["Block", 1220, 420, 3, 1, "stone"],
+            ["Block", 1380, 420, 3, 1, "stone"],
+            ["Enemy", 900, 225, 76, 76, 900, 1380, 1, 0, "left"],  // Enemy on the large platform
 
+            // Stairs to the finish
+            ["Block", 1540, 370, 3, 2, "grass"],
+            ["Block", 1800, 350, 3, 2, "grass"],
+            ["Block", 2060, 310, 3, 2, "grass"],
+            ["Block", 2310, 250, 4, 2, "grass"],
+            ["Block", 2555, 175, 2, 2, "grass"],
+            ["Block", 2555, 450, 2, 2, "grass"],
+            ["Coin", 2595, 380, 64, 64],
+            ["Finish", 2700, 500, 64, 64], // Hidden end (you have to fall)
 
-            ["Coin", 795, 380, 64, 64],   // Coin near 2nd platform
+            // Finish
+            ["Block", 2800, 175, 6, 4, "grass"],
+            ["Finish", 3000, 105, 64, 64],
 
-            // Finish (end of the level)
-            ["Finish", 1000, 275, 64, 64] // Finish line
+            // stone wall for bounds
+            ["Block", 3300, -300, 12, 5, "stone"]
         ]
     },
     {
@@ -28,60 +43,107 @@ const levels = [
         nameColor: "yellow",
         time: 160,
         objects: [
-            // Platform blocks
-            ["Block", 100, 450, 1, 5],   // Starting platform
-            ["Block", 1200, 350, 1, 6],  // Elevated platform
-            ["Block", 1800, 300, 1, 5],  // High platform near the finish
-            ["Block", 2400, 400, 1, 5],  // Final stretch platform
+            // Start
+            ["Block", -30, 450, 1, 4, "grassDark"],
+            ["Block", 370, 380, 2, 2, "grassDark"],
+            ["Block", 630, 420, 2, 2, "grassDark"],
+            ["Coin", 675, 350, 64, 64],
+            ["Enemy",  530, 100, 76, 76,  100,  500, 0.85, 1, "left"],
 
-            // Vertical blocks
-            ["Block", 500, 400, 2, 1],   // Decorative vertical block
-            ["Block", 1100, 350, 3, 1],  // Vertical challenge block
-            ["Block", 2000, 300, 3, 1],  // Guarding the final stretch
+            // Narrow stones
+            ["Block", 900, 420, 3, 1, "stone"],
+            ["Block", 1060, 420, 3, 1, "stone"],
+            ["Block", 1220, 420, 3, 1, "stone"],
+            ["Block", 1380, 420, 3, 1, "stone"],
+            ["Enemy", 900, 225, 76, 76, 900, 1380, 1, 0, "left"],  // Enemy on the large platform
 
-            // Enemies (moving on platforms)
-            ["Enemy", 650, 375, 76, 76, 600, 1000, 1],   // Patrolling enemy near 2nd platform
-            ["Enemy", 1300, 325, 76, 76, 1200, 1600, 1],  // Enemy on the large platform
-            ["Enemy", 1900, 275, 76, 76, 1800, 2200, 1],  // Higher enemy guarding the finish
+            // Stairs to the finish
+            ["Block", 1540, 370, 3, 2, "grassDark"],
+            ["Block", 1800, 350, 3, 2, "grassDark"],
+            ["Block", 2060, 310, 3, 2, "grassDark"],
+            ["Block", 2310, 250, 4, 2, "grassDark"],
+            ["Block", 2555, 175, 2, 2, "grassDark"],
+            ["Block", 2555, 450, 2, 2, "grassDark"],
+            ["Coin", 2595, 380, 64, 64],
+            ["Finish", 2700, 500, 64, 64], // Hidden end (you have to fall)
 
-            // Coins (strategically placed)
-            ["Coin", 750, 350, 64, 64],   // Coin near 2nd platform
-            ["Coin", 1400, 300, 64, 64],  // Coin above the large platform
-            ["Coin", 2300, 375, 64, 64],  // Coin near the final stretch
+            // Finish
+            ["Block", 2800, 175, 6, 4, "grassDark"],
+            ["Finish", 3000, 105, 64, 64],
 
-            // Finish (end of the level)
-            ["Finish", 600, 275, 64, 64] // Finish line
+            // stone wall for bounds
+            ["Block", 3300, -300, 12, 5, "stone"]
         ]
     },
     {
         number: 3,
         name: "Phantom's Wrath",
         nameColor: "red",
-        time: 160,
+        time: 73,
         objects: [
             // Platform blocks
-            ["Block", 100, 450, 1, 5],   // Starting platform
-            ["Block", 1200, 350, 1, 6],  // Elevated platform
-            ["Block", 1800, 300, 1, 5],  // High platform near the finish
-            ["Block", 2400, 400, 1, 5],  // Final stretch platform
+            ["Enemy",  530, 0, 500, 500,  50,  50, 1, 2, "left"],
+            ["Block", 200, 450, 1, 8, "stone"],
 
-            // Vertical blocks
-            ["Block", 500, 400, 2, 1],   // Decorative vertical block
-            ["Block", 1100, 350, 3, 1],  // Vertical challenge block
-            ["Block", 2000, 300, 3, 1],  // Guarding the final stretch
+            // 1st wave ("tutorial")
+            ["BossEnemy", -80, 380, 64, 64, 1050, 2, "right", 65],
+            ["BossEnemy", 1050, 380, 64, 64, -50, 2, "left", 59],
 
-            // Enemies (moving on platforms)
-            ["Enemy", 650, 375, 76, 76, 600, 1000, 1],   // Patrolling enemy near 2nd platform
-            ["Enemy", 1300, 325, 76, 76, 1200, 1600, 1],  // Enemy on the large platform
-            ["Enemy", 1900, 275, 76, 76, 1800, 2200, 1],  // Higher enemy guarding the finish
+            // 2nd wave (a bit harder)
+            ["BossEnemy", 1050, 380, 64, 64, -50, 2, "left", 54],
+            ["BossEnemy", 1050, 380, 64, 64, -50, 2, "left", 52],
+            ["BossEnemy", 1050, 380, 64, 64, -50, 2, "left", 50],
+            ["BossEnemy", -50, 380, 64, 64, 1050, 2, "right", 48],
+            ["BossEnemy", -50, 380, 64, 64, 1050, 2, "right", 46],
+            ["BossEnemy", -50, 380, 64, 64, 1050, 2, "right", 44],
 
-            // Coins (strategically placed)
-            ["Coin", 750, 350, 64, 64],   // Coin near 2nd platform
-            ["Coin", 1400, 300, 64, 64],  // Coin above the large platform
-            ["Coin", 2300, 375, 64, 64],  // Coin near the final stretch
+            // 3rd wave (left-right combo)
+            ["BossEnemy", 1050, 380, 64, 64, -50, 2, "left", 42],
+            ["BossEnemy", -50, 380, 64, 64, 1050, 2, "right", 41],
+            ["BossEnemy", 1050, 380, 64, 64, -50, 2, "left", 40],
+            ["BossEnemy", -50, 380, 64, 64, 1050, 2, "right", 39],
+            ["BossEnemy", 1050, 380, 64, 64, -50, 2, "left", 38],
+            ["BossEnemy", -50, 380, 64, 64, 1050, 2, "right", 37],
+            ["BossEnemy", 1050, 380, 64, 64, -50, 2, "left", 36],
+            ["BossEnemy", -50, 380, 64, 64, 1050, 2, "right", 35],
 
-            // Finish (end of the level)
-            ["Finish", 2900, 275, 64, 64] // Finish line
+            // 4th wave (a lot of enemies behind each other)
+            ["BossEnemy", 1050, 380, 64, 64, -50, 2, "left", 32],
+            ["BossEnemy", 1090, 380, 64, 64, -50, 2, "left", 31],
+            ["BossEnemy", 1130, 380, 64, 64, -50, 2, "left", 30],
+            ["BossEnemy", 1170, 380, 64, 64, -50, 2, "left", 29],
+
+            ["BossEnemy", -50, 380, 64, 64, 1050, 2, "right", 26],
+            ["BossEnemy", -90, 380, 64, 64, 1050, 2, "right", 26],
+            ["BossEnemy", -130, 380, 64, 64, 1050, 2, "right", 26],
+            ["BossEnemy", -170, 380, 64, 64, 1050, 2, "right", 26],
+
+            // last wave (mixup)
+            ["BossEnemy", 1050, 380, 64, 64, -50, 2, "left", 22],
+            ["BossEnemy", 1050, 380, 64, 64, -50, 2, "left", 21],
+            ["BossEnemy", 1050, 380, 64, 64, -50, 2, "left", 20],
+            ["BossEnemy", -50, 380, 64, 64, 1050, 2, "right", 19],
+            ["BossEnemy", -50, 380, 64, 64, 1050, 2, "right", 18],
+            ["BossEnemy", -50, 380, 64, 64, 1050, 2, "right", 17],
+            
+            ["BossEnemy", 1050, 380, 64, 64, -50, 2, "left", 16],
+            ["BossEnemy", -50, 380, 64, 64, 1050, 2, "right", 15],
+            ["BossEnemy", 1050, 380, 64, 64, -50, 2, "left", 14],
+            ["BossEnemy", -50, 380, 64, 64, 1050, 2, "right", 13],
+
+            ["BossEnemy", 1050, 380, 64, 64, -50, 2, "left", 12],
+            ["BossEnemy", 1090, 380, 64, 64, -50, 2, "left", 11],
+            ["BossEnemy", 1130, 380, 64, 64, -50, 2, "left", 10],
+
+            ["BossEnemy", -50, 380, 64, 64, 1050, 2, "right", 9],
+            ["BossEnemy", 1050, 380, 64, 64, -50, 2, "left", 8],
+            ["BossEnemy", -50, 380, 64, 64, 1050, 2, "right",7],
+            ["BossEnemy", 1050, 380, 64, 64, -50, 2, "left", 6],
+
+            ["BossEnemy", -50, 380, 64, 64, 1050, 2, "right", 5],
+            ["BossEnemy", -90, 380, 64, 64, 1050, 2, "right", 4],
+            ["BossEnemy", -130, 380, 64, 64, 1050, 2, "right", 3],
+            ["BossEnemy", -170, 380, 64, 64, 1050, 2, "right", 2]
         ]
     }
 ];

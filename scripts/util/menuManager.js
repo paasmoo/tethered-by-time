@@ -27,6 +27,9 @@ function show(name) {
         case GameState.GAME_OVER:
             renderGameOver();
             break;
+        case GameState.WON:
+            renderWon();
+            break;
     }
 }
 
@@ -160,7 +163,15 @@ function renderGameOver() {
     ctx.fillRect(0, 0, global.canvas.width, global.canvas.height);
 
     drawText("Aurosa's adventure is over.", global.canvas.width / 2, global.canvas.height / 2, 30, "red");
-    drawText("Press [ ENTER ] to go back to the main menu.", global.canvas.width / 2, global.canvas.height / 2 + 40, 15, "white");
+    drawText("Press [ ENTER ] to go back to the main menu.", global.canvas.width / 2, global.canvas.height / 2 + 40, 15, "gray");
+}
+
+function renderWon() {
+    drawBlackscreen();
+
+    drawText("THANK YOU FOR PLAYING!", global.canvas.width / 2, global.canvas.height / 2, 30, "white");
+    drawText(`You collected ${global.coinsCollected}/${global.coins.length} coins!`, global.canvas.width / 2, global.canvas.height / 2 + 40, 15, "white");
+    drawText("Press [ ENTER ] to go back to the main menu.", global.canvas.width / 2, global.canvas.height / 2 + 80, 15, "gray");
 }
 
 function renderHeartLost() {

@@ -18,6 +18,8 @@ global.isDead = false;
 global.gameState = GameState.TITLE_SCREEN;
 global.gameFirstStart = true;
 
+global.won = false;
+
 global.modifierGenerated = false;
 global.currentModifiers = [];
 
@@ -60,6 +62,7 @@ global.reset = function (fullReset = false) {
         global.coinsCollected = 0;
         global.coins = [];
         global.backgroundShift = 0;
+        global.won = false;
     }
 
     global.wrapper = document.getElementById("gameContainer").style.transform = "scale(1, 1)";

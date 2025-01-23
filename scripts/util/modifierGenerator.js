@@ -2,11 +2,24 @@ import { global } from "../modules/global.js";
 import { levelModifiers } from "./modifiers.js";
 
 function generate() {
-    const numModifiers = Math.random() < 0.5 ? 1 : 2;
+    let numModifiers = Math.random() < 0.5 ? 1 : 2;
     const selectedModifiers = [];
     let modifiersCopy;
 
-    if (numModifiers === 1) {
+    if(global.currentLevel == 3) {
+        numModifiers = 0;
+    }
+
+    if (numModifiers === 0) {
+        let somethingHappens = Math.random() < 0.5 ? 1 : 2;
+
+        if(somethingHappens == 1) {
+            let enemies = Math.random() < 0.5 ? 2 : 3;
+            selectedModifiers.push({mod: levelModifiers[enemies], chance: 25});
+        } else {
+            selectedModifiers.push({mod: levelModifiers[8], chance: 50});
+        }
+    } else if (numModifiers === 1) {
         selectedModifiers.push(generateSingleModifier());
     } else {
         while (selectedModifiers.length < numModifiers) {
