@@ -16,7 +16,7 @@ const levelModifiers = [
             global.enemyModifier += enemyModifier;
             global.moveModifier -= moveModifier;
         },
-        weight: 5
+        weight: 2
     },
     {
         code: "controlswitch",
