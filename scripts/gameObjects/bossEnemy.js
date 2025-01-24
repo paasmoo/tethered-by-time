@@ -9,6 +9,16 @@ class BossEnemy extends BaseGameObject {
     facing;
     startTime;
 
+    getBoxBounds = function () {
+        let bounds = {
+            left: this.x + global.backgroundShift + 20,
+            right: this.x + this.width + global.backgroundShift - 20,
+            top: this.y + 10,
+            bottom: this.y + this.height - 10
+        }
+        return bounds;
+    }
+
     changeSpriteDirection = function (direction) {
         if (direction === "left") {
             this.switchCurrentSprites(9, 17);

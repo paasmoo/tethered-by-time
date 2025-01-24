@@ -39,8 +39,8 @@ class BaseGameObject {
 
     getBoxBounds = function () {
         let bounds = {
-            left: this.x,
-            right: this.x + this.width,
+            left: this.x + global.backgroundShift,
+            right: this.x + this.width + global.backgroundShift,
             top: this.y,
             bottom: this.y + this.height
         }

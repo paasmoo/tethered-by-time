@@ -98,7 +98,7 @@ const objectFactory = {
     Spike: (x, y, length, position) => {
         createSpikeRow(x, y, length, position);
     },
-    Enemy: (x, y, width, height, startX, endX, speed, type, facing) => new Enemy(x, y, width, height, startX, endX, speed * global.enemyModifier, type, facing),
+    Enemy: (x, y, width, height, startX, endX, speed, type, facing) =>  new Enemy(x, y, width, height, startX, endX, speed * global.enemyModifier, type, facing),
     Finish: (x, y, width, height) => new Star(x, y, width, height),
     BossEnemy: (x, y, width, height, end, speed, facing, startTime) => new BossEnemy(x, y, width, height, end, speed, facing, startTime)
 }

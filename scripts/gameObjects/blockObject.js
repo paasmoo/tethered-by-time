@@ -1,6 +1,5 @@
 import { BaseGameObject } from "./baseGameObject.js";
 
-
 class BlockObject extends BaseGameObject {
     blockGravityForces = true;
     name = "Block";

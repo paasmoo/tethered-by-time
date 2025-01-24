@@ -4,8 +4,15 @@ import { global } from "../modules/global.js";
 class Spike extends BaseGameObject {
     blockGravityForces = false;
 
-    update = function () {
-    }
+    getBoxBounds = function () {
+        let bounds = {
+            left: this.x + global.backgroundShift + 10,
+            right: this.x + this.width + global.backgroundShift - 10,
+            top: this.y,
+            bottom: this.y + this.height
+        }
+        return bounds;
+    };
 
     reactToCollision = function (collidingObject)   {
         if (collidingObject.name == "Skeleton") {

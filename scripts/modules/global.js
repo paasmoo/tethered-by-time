@@ -15,7 +15,7 @@ global.currentLevel = 1;
 global.buttonSelected = "play";
 global.levelDone = false;
 global.isDead = false;
-global.gameState = GameState.TITLE_SCREEN;
+global.gameState = GameState.MODIFIER_OVERVIEW;
 global.gameFirstStart = true;
 
 global.won = false;
