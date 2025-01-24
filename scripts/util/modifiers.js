@@ -8,7 +8,7 @@ const levelModifiers = [
     {
         code: "allbad",
         name: "Doomed!",
-        description: "TODO",
+        description: "Everything’s falling apart, brace yourself.",
         counter: "none",
         apply: function() {
             global.timerDuration -= Math.floor(global.timerDuration / timeModifier);
@@ -21,7 +21,7 @@ const levelModifiers = [
     {
         code: "controlswitch",
         name: "Flip It!",
-        description: "TODO",
+        description: "Your controls are reversed. Good luck!",
         counter: "controlswitch",
         apply: function() {
             global.inputSwitched = !global.inputSwitched;
@@ -31,7 +31,7 @@ const levelModifiers = [
     {
         code: "enemiesminus",
         name: "Lazy Foes",
-        description: "TODO",
+        description: "Enemies working for minimum wage, don't expect much effort!",
         counter: "enemiesplus",
         apply: function() {
             global.enemyModifier -= enemyModifier;
@@ -41,7 +41,7 @@ const levelModifiers = [
     {
         code: "enemiesplus",
         name: "Hyper Foes",
-        description: "TODO",
+        description: "Enemies on steroids, good luck!",
         counter: "enemiesminus",
         apply: function() {
             global.enemyModifier += enemyModifier;
@@ -51,7 +51,7 @@ const levelModifiers = [
     {
         code: "gravity",
         name: "Moon Bounce",
-        description: "TODO",
+        description: "Gravity’s weaker, enjoy the high jumps!",
         counter: "none",
         apply: function() {
             global.gravityForce = 1.3;
@@ -61,7 +61,7 @@ const levelModifiers = [
     {
         code: "heartminus",
         name: "Heartbreaker",
-        description: "TODO",
+        description: "Lose hearts, both your max and current count.",
         counter: "heartplus",
         apply: function() {
             global.maxHearts--;
@@ -72,7 +72,7 @@ const levelModifiers = [
     {
         code: "heartplus",
         name: "Lifeline",
-        description: "TODO",
+        description: "Gain extra hearts, both max and current.",
         counter: "heartminus",
         apply: function() {
             global.maxHearts++;
@@ -83,7 +83,7 @@ const levelModifiers = [
     {
         code: "mirror",
         name: "Mirror World",
-        description: "TODO",
+        description: "Everything’s mirrored, and your controls too.",
         counter: "mirror",
         apply: function() {
             let wrapper = document.getElementById("gameContainer");
@@ -94,8 +94,8 @@ const levelModifiers = [
     },
     {
         code: "nothing",
-        name: "Meh...",
-        description: "TODO",
+        name: "null",
+        description: "This has to be a bug?!",
         counter: "none",
         apply: function() {},
         weight: 5
@@ -103,7 +103,7 @@ const levelModifiers = [
     {
         code: "speedminus",
         name: "Snail's Pace",
-        description: "TODO",
+        description: "Slow and steady... but mostly slow.",
         counter: "speedplus",
         apply: function() {
             global.moveModifier -= moveModifier;
@@ -113,7 +113,7 @@ const levelModifiers = [
     {
         code: "speedplus",
         name: "Speed Runner",
-        description: "TODO",
+        description: "Zoom, zoom!",
         counter: "speedminus",
         apply: function() {
             global.moveModifier += moveModifier;
@@ -123,7 +123,7 @@ const levelModifiers = [
     {
         code: "timeminus",
         name: "Time Crunch",
-        description: "TODO",
+        description: "Better hurry, time's running out!",
         counter: "timeplus",
         apply: function() {
             global.timerDuration -= Math.floor(global.timerDuration / timeModifier);
@@ -133,7 +133,7 @@ const levelModifiers = [
     {
         code: "timeplus",
         name: "Time Bender",
-        description: "TODO",
+        description: "Don't stress it, take your time.",
         counter: "timeminus",
         apply: function() {
             global.timerDuration += Math.floor(global.timerDuration / timeModifier);

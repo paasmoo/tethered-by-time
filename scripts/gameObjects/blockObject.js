@@ -6,6 +6,7 @@ class BlockObject extends BaseGameObject {
 
     reactToCollision = function (collidingObject)   {
         if (collidingObject.name == "Skeleton") {
+            collidingObject.xVelocity = 0;
             collidingObject.x = collidingObject.previousX;
             collidingObject.y = collidingObject.previousY;
         }

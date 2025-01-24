@@ -9,12 +9,11 @@ class MoveTrigger extends BaseGameObject {
     }
 
     draw = function () {
-       //global.ctx.fillRect(this.x, this.y, this.width, this.height);
     }
 
     reactToCollision = function (collidingObject) {
         if (collidingObject.name === "Skeleton") {
-            let shiftBy = collidingObject.xVelocity * global.deltaTime;
+            let shiftBy = collidingObject.xVelocity * global.deltaTime * 0.5;
             let isBlocked = false;
     
             // Check if player is colliding with a block
@@ -24,12 +23,11 @@ class MoveTrigger extends BaseGameObject {
                     let collisionHappened = global.detectBoxCollision(collidingObject, otherObject);
                     if (collisionHappened) {
                         isBlocked = true;
-                        break; // Stop checking further if the player is blocked by any block
+                        break;
                     }
                 }
             }
     
-            // If player is not blocked, move the background
             if (!isBlocked) {
                 if (this.name === "Right" && collidingObject.x < this.x) {
                     collidingObject.x = this.x;
@@ -37,7 +35,6 @@ class MoveTrigger extends BaseGameObject {
     
                 global.backgroundShift += shiftBy * -1;
     
-                // Ensure the background does not exceed the limits
                 if (global.backgroundShift < global.backgroundMaxShift) {
                     global.backgroundShift = global.backgroundMaxShift;
                 } else if (global.backgroundShift > 0) {
@@ -54,7 +51,6 @@ class MoveTrigger extends BaseGameObject {
 
     constructor(x, y, width, height, name) {
         super(x, y, width, height);
-        //this.loadImages(["./images/apple.png"]);
         this.backGroundDiv = document.querySelector("#background");
     }
 }

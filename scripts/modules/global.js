@@ -15,8 +15,10 @@ global.currentLevel = 1;
 global.buttonSelected = "play";
 global.levelDone = false;
 global.isDead = false;
-global.gameState = GameState.MODIFIER_OVERVIEW;
+global.gameState = GameState.TITLE_SCREEN;
 global.gameFirstStart = true;
+
+global.currentInfoIndex = 0;
 
 global.won = false;
 
@@ -76,14 +78,14 @@ global.reset = function (fullReset = false) {
 }
 
 global.startTimer = function () {
-    global.timerRemaining = global.timerDuration; // Reset the timer to the full duration
+    global.timerRemaining = global.timerDuration;
 
     global.timerInterval = setInterval(() => {
         if (global.timerRemaining > 1) {
             global.timerRemaining--;
         } else {
             clearInterval(global.timerInterval);
-            global.timerInterval = null; // Timer has ended
+            global.timerInterval = null;
 
             global.reset();
             global.allGameObjects = [];
@@ -114,9 +116,9 @@ global.getCanvasBounds = function () {
 }
 
 global.checkCollisionWithAnyOther = function (givenObject) {
-    for (let i = givenObject.index; i < global.allGameObjects.length; i++) {
+    for (let i = 0; i < global.allGameObjects.length; i++) {
         let otherObject = global.allGameObjects[i];
-        if (otherObject.active == true) {
+        if (otherObject.active && otherObject !== givenObject) {
             let collisionHappened = this.detectBoxCollision(givenObject, otherObject);
             if (collisionHappened) {
                 givenObject.reactToCollision(otherObject);
@@ -124,7 +126,7 @@ global.checkCollisionWithAnyOther = function (givenObject) {
             }
         }
     }
-}
+};
 
 global.detectBoxCollision = function (gameObject1, gameObject2) {
     let box1 = gameObject1.getBoxBounds();

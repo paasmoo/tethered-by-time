@@ -1,5 +1,6 @@
 const GameState = Object.freeze({
     TITLE_SCREEN: "menu_titleScreen",
+    INFO: "menu_info",
     LORE_RECAP: "menu_loreRecap",
     LEVEL_OVERVIEW: "menu_levelOverview",
     MODIFIER_OVERVIEW: "menu_modifierOverview",

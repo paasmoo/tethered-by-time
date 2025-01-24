@@ -3,6 +3,7 @@ import { global } from "../modules/global.js";
 // utils
 import { levels } from "./levels.js";
 import { GameState } from "./menus.js";
+import { levelModifiers } from "./modifiers.js";
 
 
 const ctx = global.ctx;
@@ -11,6 +12,9 @@ function show(name) {
     switch (name) {
         case GameState.TITLE_SCREEN:
             renderTitleScreen();
+            break;
+        case GameState.INFO:
+            renderInfo();
             break;
         case GameState.LORE_RECAP:
             renderLoreRecap();
@@ -21,9 +25,9 @@ function show(name) {
         case GameState.MODIFIER_OVERVIEW:
             renderModifierOverview();
             break;
-            case GameState.HEART_LOST:
-                renderHeartLost();
-                break;
+        case GameState.HEART_LOST:
+            renderHeartLost();
+            break;
         case GameState.GAME_OVER:
             renderGameOver();
             break;
@@ -81,6 +85,40 @@ function renderTitleScreen() {
     drawCenteredImage(`../images/ui/buttons/infoButton${infoButtonState}.png`, 1, 100);
 
     drawText("by Pascal Pamer", global.canvas.width / 2, global.canvas.height - 5, 10, "gray")
+}
+
+function renderInfo() {
+    let weightSum = 0;
+    drawBlackscreen();
+
+    levelModifiers.forEach(mod => {
+        weightSum += mod.weight;
+    });
+
+    let chance = levelModifiers[global.currentInfoIndex].weight / weightSum * 100
+
+    drawText("Modifier", global.canvas.width / 2, global.canvas.height / 2 - 150, 30, "white");
+
+    let image = new Image();
+    image.src = `../images/modifier/${levelModifiers[global.currentInfoIndex].code}.png`;
+    ctx.drawImage(image, global.canvas.height - image.width / 2, global.canvas.height / 2 - 100);
+    drawText(`${chance.toFixed(2)}%`, global.canvas.height, global.canvas.height / 2 + 90, 15, "cyan");
+    drawText(levelModifiers[global.currentInfoIndex].name, global.canvas.height, global.canvas.height / 2 + 125, 20, "white");
+    drawText(levelModifiers[global.currentInfoIndex].description, global.canvas.height, global.canvas.height / 2 + 150, 15, "gray");
+
+    if(global.currentInfoIndex > 0) {
+    image = new Image();
+    image.src = `../images/ui/buttons/arrowLeft.png`;
+    ctx.drawImage(image, global.canvas.height - image.width / 2 - 150, global.canvas.height / 2 - 100);
+    }
+
+    if(global.currentInfoIndex < levelModifiers.length-1) {
+    image = new Image();
+    image.src = `../images/ui/buttons/arrowRight.png`;
+    ctx.drawImage(image, global.canvas.height - image.width / 2 + 150, global.canvas.height / 2 - 100);
+    }
+
+    drawText("Press [ ENTER ] to go back to the main menu.", global.canvas.height, global.canvas.height / 2 + 230, 12, "gray");
 }
 
 function renderLoreRecap() {
@@ -177,7 +215,7 @@ function renderWon() {
 function renderHeartLost() {
     drawBlackscreen();
 
-    if(global.hearts > 1) {
+    if (global.hearts > 1) {
         drawText(`${global.hearts} hearts remaining.`, global.canvas.width / 2, global.canvas.height / 2, 30, "red");
     } else {
         drawText(`${global.hearts} heart remaining.`, global.canvas.width / 2, global.canvas.height / 2, 30, "red");

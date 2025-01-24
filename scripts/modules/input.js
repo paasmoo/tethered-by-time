@@ -1,6 +1,7 @@
 import { global } from "./global.js";
 
 import { GameState } from "../util/menus.js";
+import { levelModifiers } from "../util/modifiers.js";
 
 let dActive = false;
 let aActive = false;
@@ -86,6 +87,20 @@ function stop(event) {
 
 function menu(event) {
     switch (event.key) {
+        case "d":
+            if (global.gameState == GameState.INFO) {
+                if (global.currentInfoIndex < levelModifiers.length - 1) {
+                    global.currentInfoIndex++;
+                }
+            }
+            break;
+        case "a":
+            if (global.gameState == GameState.INFO) {
+                if (global.currentInfoIndex > 0) {
+                    global.currentInfoIndex--;
+                }
+            }
+            break;
         case "s":
             if (global.gameState == GameState.TITLE_SCREEN) {
                 if (global.buttonSelected != "info") {
@@ -105,7 +120,12 @@ function menu(event) {
                 if (global.buttonSelected == "play") {
                     global.reset(true);
                     global.gameState = GameState.LORE_RECAP;
+                } else {
+                    global.gameState = GameState.INFO;
                 }
+            } else if (global.gameState == GameState.INFO) {
+                global.currentInfoIndex = 0;
+                global.gameState = GameState.TITLE_SCREEN;
             } else if (global.gameState == GameState.LORE_RECAP) {
                 global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
                 global.gameState = GameState.LEVEL_OVERVIEW;
