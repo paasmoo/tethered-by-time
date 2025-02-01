@@ -7,6 +7,7 @@
 ## 🌐 **Play the Game**
 <p>Unfortunately, GitHub Pages can't host my game because it has problems showing the images for my game.
 You have to download and run the game locally in order to play it.</p>
+
 ---
 
 ## 📸 **Screenshots**
