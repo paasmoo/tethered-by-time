@@ -5,8 +5,8 @@
 ---
 
 ## 🌐 **Play the Game**
-[Click here to play the game!](https://paasmoo.github.io/CCL1/)
-
+Unfortunately, GitHub Pages can't host my game because it has problems showing the images for my game.
+You have to download and run the game locally in order to play it.
 ---
 
 ## 📸 **Screenshots**
