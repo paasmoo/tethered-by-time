@@ -100,7 +100,7 @@ function renderInfo() {
     drawText("Modifier", global.canvas.width / 2, global.canvas.height / 2 - 150, 30, "white");
 
     let image = new Image();
-    image.src = `../images/modifier/${levelModifiers[global.currentInfoIndex].code}.png`;
+    image.src = `/images/modifier/${levelModifiers[global.currentInfoIndex].code}.png`;
     ctx.drawImage(image, global.canvas.height - image.width / 2, global.canvas.height / 2 - 100);
     drawText(`${chance.toFixed(2)}%`, global.canvas.height, global.canvas.height / 2 + 90, 15, "cyan");
     drawText(levelModifiers[global.currentInfoIndex].name, global.canvas.height, global.canvas.height / 2 + 125, 20, "white");
@@ -108,13 +108,13 @@ function renderInfo() {
 
     if(global.currentInfoIndex > 0) {
     image = new Image();
-    image.src = `../images/ui/buttons/arrowLeft.png`;
+    image.src = `/images/ui/buttons/arrowLeft.png`;
     ctx.drawImage(image, global.canvas.height - image.width / 2 - 150, global.canvas.height / 2 - 100);
     }
 
     if(global.currentInfoIndex < levelModifiers.length-1) {
     image = new Image();
-    image.src = `../images/ui/buttons/arrowRight.png`;
+    image.src = `/images/ui/buttons/arrowRight.png`;
     ctx.drawImage(image, global.canvas.height - image.width / 2 + 150, global.canvas.height / 2 - 100);
     }
 
@@ -148,7 +148,7 @@ function renderLevelOverview() {
 
         // Level symbol
         image = new Image();
-        image.src = `../images/levelSymbols/symbol${i + 1}.png`;
+        image.src = `/images/levelSymbols/symbol${i + 1}.png`;
         ctx.drawImage(image, x - image.width / 2, global.canvas.height / 2 - 120);
 
         // Level text and name
@@ -183,7 +183,7 @@ function renderModifierOverview() {
         drawText(`${modifier.chance.toFixed(2)}%`, x, global.canvas.height / 2 - 90, 10, "gray");
 
         const image = new Image();
-        image.src = `../images/modifier/${modifier.mod.code}.png`;
+        image.src = `/images/modifier/${modifier.mod.code}.png`;
         ctx.drawImage(image, x - image.width / 2, global.canvas.height / 2 - 80);
 
         drawText(modifier.mod.name, x, global.canvas.height / 2 + 120, 20, "white");
