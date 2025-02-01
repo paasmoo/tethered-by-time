@@ -75,14 +75,14 @@ function drawBlackscreen() {
 function renderTitleScreen() {
     global.background.style.visibility = "hidden";
 
-    drawCenteredImage("../images/ui/background.png");
-    drawCenteredImage("../images/ui/logo.png", 1 / 3, -100);
+    drawCenteredImage("/images/ui/background.png");
+    drawCenteredImage("/images/ui/logo.png", 1 / 3, -100);
 
     const playButtonState = global.buttonSelected === "play" ? "1" : "0";
-    drawCenteredImage(`../images/ui/buttons/playButton${playButtonState}.png`, 1, 10);
+    drawCenteredImage(`/images/ui/buttons/playButton${playButtonState}.png`, 1, 10);
 
     const infoButtonState = global.buttonSelected === "info" ? "1" : "0";
-    drawCenteredImage(`../images/ui/buttons/infoButton${infoButtonState}.png`, 1, 100);
+    drawCenteredImage(`/images/ui/buttons/infoButton${infoButtonState}.png`, 1, 100);
 
     drawText("by Pascal Pamer", global.canvas.width / 2, global.canvas.height - 5, 10, "gray")
 }
