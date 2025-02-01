@@ -130,16 +130,20 @@ function createPlayer() {
 function resetGame() {
     generateLevel(levels[global.currentLevel - 1], true);
     global.playerObject = createPlayer();
-    global.rightMoveTrigger = new MoveTrigger(450, -500, 3000, 1000, "Right");
-    global.leftMoveTrigger = new MoveTrigger(100, 0, 20, 1000, "Left");
+    if(global.currentLevel !== 3) {
+        global.rightMoveTrigger = new MoveTrigger(450, -500, 3000, 1000, "Right");
+        global.leftMoveTrigger = new MoveTrigger(100, 0, 20, 1000, "Left");
+    }
     uiManager.drawHeartsAndCoins();
 }
 
 function setupGame() {
     generateLevel(levels[global.currentLevel - 1], false);
     global.playerObject = createPlayer();
-    global.rightMoveTrigger = new MoveTrigger(450, -500, 3000, 1000, "Right");
-    global.leftMoveTrigger = new MoveTrigger(99, 0, 20, 1000, "Left");
+    if(global.currentLevel !== 3) {
+        global.rightMoveTrigger = new MoveTrigger(450, -500, 3000, 1000, "Right");
+        global.leftMoveTrigger = new MoveTrigger(100, 0, 20, 1000, "Left");
+    }
     uiManager.drawHeartsAndCoins();
     global.startTimer();
 }
