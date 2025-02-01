@@ -58,6 +58,7 @@ Enemies can now also go up and down.
 Created 2 normal levels that are easy to beat.
 Created 1 boss level with win screen at the end.
 
-TO-DO
+Day 9 (24/01/2025)
 ---
 Add info screen with controls & modifier info.
+Fixed small bugs & collision detection.
