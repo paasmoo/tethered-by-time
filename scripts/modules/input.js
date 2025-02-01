@@ -1,5 +1,4 @@
 import { global } from "./global.js";
-
 import { GameState } from "../util/menus.js";
 import { levelModifiers } from "../util/modifiers.js";
 
@@ -7,18 +6,14 @@ let dActive = false;
 let aActive = false;
 
 function moveRight() {
-    if (!dActive) {
-        global.playerObject.switchCurrentSprites(0, 3);
-    }
+    if (!dActive) global.playerObject.switchCurrentSprites(0, 3);
     global.playerObject.xVelocity = 200 * global.moveModifier;
     global.playerObject.yVelocity = 0;
     dActive = true;
 }
 
 function moveLeft() {
-    if (!aActive) {
-        global.playerObject.switchCurrentSprites(4, 7);
-    }
+    if (!aActive) global.playerObject.switchCurrentSprites(4, 7);
     global.playerObject.xVelocity = -200 * global.moveModifier;
     global.playerObject.yVelocity = 0;
     aActive = true;
@@ -41,106 +36,78 @@ function stopMovingLeft() {
 }
 
 function move(event) {
-    if (global.gameState == GameState.PLAYING) {
-        switch (event.key) {
-            case "d":
-                if (global.inputSwitched) {
-                    moveLeft();
-                } else {
-                    moveRight();
-                }
-                break;
-            case "a":
-                if (global.inputSwitched) {
-                    moveRight();
-                } else {
-                    moveLeft();
-                }
-                break;
-            case " ":
-                global.playerObject.setJumpForce(.8);
-                break;
-        }
-    }
+    if (global.gameState !== GameState.PLAYING) return;
+    
+    const keyActions = {
+        "d": global.inputSwitched ? moveLeft : moveRight,
+        "a": global.inputSwitched ? moveRight : moveLeft,
+        " ": () => global.playerObject.setJumpForce(0.8)
+    };
+    
+    if (keyActions[event.key]) keyActions[event.key]();
 }
 
 function stop(event) {
-    if (global.gameState == GameState.PLAYING) {
-        switch (event.key) {
-            case "d":
-                if (global.inputSwitched) {
-                    stopMovingLeft();
-                } else {
-                    stopMovingRight();
-                }
-                break;
-            case "a":
-                if (global.inputSwitched) {
-                    stopMovingRight();
-                } else {
-                    stopMovingLeft();
-                }
-                break;
-        }
-    }
+    if (global.gameState !== GameState.PLAYING) return;
+    
+    const keyActions = {
+        "d": global.inputSwitched ? stopMovingLeft : stopMovingRight,
+        "a": global.inputSwitched ? stopMovingRight : stopMovingLeft
+    };
+    
+    if (keyActions[event.key]) keyActions[event.key]();
 }
 
 function menu(event) {
-    switch (event.key) {
-        case "d":
-            if (global.gameState == GameState.INFO) {
-                if (global.currentInfoIndex < levelModifiers.length - 1) {
-                    global.currentInfoIndex++;
-                }
+    const menuActions = {
+        "d": () => {
+            if (global.gameState === GameState.INFO && global.currentInfoIndex < levelModifiers.length - 1) {
+                global.currentInfoIndex++;
             }
-            break;
-        case "a":
-            if (global.gameState == GameState.INFO) {
-                if (global.currentInfoIndex > 0) {
-                    global.currentInfoIndex--;
-                }
+        },
+        "a": () => {
+            if (global.gameState === GameState.INFO && global.currentInfoIndex > 0) {
+                global.currentInfoIndex--;
             }
-            break;
-        case "s":
-            if (global.gameState == GameState.TITLE_SCREEN) {
-                if (global.buttonSelected != "info") {
-                    global.buttonSelected = "info"
-                }
+        },
+        "s": () => {
+            if (global.gameState === GameState.TITLE_SCREEN && global.buttonSelected !== "info") {
+                global.buttonSelected = "info";
             }
-            break;
-        case "w":
-            if (global.gameState == GameState.TITLE_SCREEN) {
-                if (global.buttonSelected != "play") {
-                    global.buttonSelected = "play";
-                }
+        },
+        "w": () => {
+            if (global.gameState === GameState.TITLE_SCREEN && global.buttonSelected !== "play") {
+                global.buttonSelected = "play";
             }
-            break;
-        case "Enter":
-            if (global.gameState == GameState.TITLE_SCREEN) {
-                if (global.buttonSelected == "play") {
-                    global.reset(true);
-                    global.gameState = GameState.LORE_RECAP;
-                } else {
-                    global.gameState = GameState.INFO;
-                }
-            } else if (global.gameState == GameState.INFO) {
-                global.currentInfoIndex = 0;
-                global.gameState = GameState.TITLE_SCREEN;
-            } else if (global.gameState == GameState.LORE_RECAP) {
-                global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
-                global.gameState = GameState.LEVEL_OVERVIEW;
-            } else if (global.gameState == GameState.MODIFIER_OVERVIEW) {
-                global.gameState = GameState.PLAYING;
-            } else if (global.gameState == GameState.GAME_OVER || global.gameState == GameState.WON) {
-                global.gameState = GameState.TITLE_SCREEN;
-                global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
+        },
+        "Enter": () => {
+            switch (global.gameState) {
+                case GameState.TITLE_SCREEN:
+                    global.buttonSelected === "play" ? (global.reset(true), global.gameState = GameState.LORE_RECAP) : global.gameState = GameState.INFO;
+                    break;
+                case GameState.INFO:
+                    global.currentInfoIndex = 0;
+                    global.gameState = GameState.TITLE_SCREEN;
+                    break;
+                case GameState.LORE_RECAP:
+                    global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
+                    global.gameState = GameState.LEVEL_OVERVIEW;
+                    break;
+                case GameState.MODIFIER_OVERVIEW:
+                    global.gameState = GameState.PLAYING;
+                    break;
+                case GameState.GAME_OVER:
+                case GameState.WON:
+                    global.gameState = GameState.TITLE_SCREEN;
+                    global.ctx.clearRect(0, 0, global.canvas.width, global.canvas.height);
+                    break;
             }
-    }
+        }
+    };
+    
+    if (menuActions[event.key]) menuActions[event.key]();
 }
 
 document.addEventListener("keydown", menu);
-
 document.addEventListener("keypress", move);
-
-//if you just want to move as long as the player presses a key:
 document.addEventListener("keyup", stop);
